@@ -16,4 +16,10 @@ const addItem = async (newItem) => {
   return response.data
 }
 
-export default { getAll, addItem }
+//Update item
+const updateItem = async (item) => {
+  const response = await axios.put(`${baseUrl}/${item.id}`, item)
+  return response.data
+}
+
+export default { getAll, addItem, updateItem }
