@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { v4 as uuidv4 } from 'uuid'
 import itemsService from '../services/items'
 import Item from './Item'
 
@@ -22,17 +21,19 @@ const Wishlist = () => {
   }
 
   //addEmptyRow function adds an item row to the array
-  const addEmptyRow = () => {
+  const addEmptyRow = async () => {
     const wishlistId = items[0].wishlist.id
     const newItem = {
       name: '',
       url: '',
       price: '',
-      id: uuidv4(),
       wishlist: wishlistId,
     }
 
-    const newItems = items.concat(newItem)
+    //Save empty item to the database
+    const saveItem = await itemsService.addItem(newItem)
+    console.log(saveItem)
+    const newItems = items.concat(saveItem)
     setItems(newItems)
     console.log(newItems)
   }

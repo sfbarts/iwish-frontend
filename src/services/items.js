@@ -10,4 +10,10 @@ const getAll = async () => {
   return request.data
 }
 
-export default { getAll }
+//Add new item to a wishlist
+const addItem = async (newItem) => {
+  const response = await axios.post(baseUrl, newItem)
+  return response.data
+}
+
+export default { getAll, addItem }
