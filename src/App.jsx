@@ -1,7 +1,9 @@
+import Wishlist from './components/Wishlist'
+
 const App = () => {
   return (
     <div>
-      <p>Hello world</p>
+      <Wishlist />
     </div>
   )
 }
