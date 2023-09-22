@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, useNavigate } from 'react-router-dom'
 import wishlistsService from '../services/wishlists'
+import WishlistButton from './WishlistButton'
 
 const Wishlists = () => {
   //Use wishlists state to control wishlists buttons
   const [wishlists, setWishlists] = useState(null)
-
-  //define useNavigate to use it later for routing to each specific list
-  const navigate = useNavigate()
 
   //get wishlists from database
   useEffect(() => {
@@ -24,24 +21,29 @@ const Wishlists = () => {
     return
   }
 
-  //handle each wihslist button to show a specific list
-  const handleWishlistClick = (e, wishlist) => {
-    navigate(`/wishlists/${wishlist.name}`, { state: wishlist })
-  }
-
   console.log(wishlists)
+
+  const handleAddWishlist = async () => {
+    const categoryId = wishlists[0].category.id
+    const newWishlist = {
+      name: '',
+      category: categoryId,
+    }
+
+    //Save empty wishlist to the database
+    const saveWishlist = await wishlistsService.addWishlist(newWishlist)
+    console.log(saveWishlist)
+    const newWishlists = wishlists.concat(saveWishlist)
+    setWishlists(newWishlists)
+  }
 
   //render a button for each list
   return (
     <div>
       {wishlists.map((wishlist) => (
-        <button
-          key={wishlist.id}
-          onClick={(e) => handleWishlistClick(e, wishlist)}
-        >
-          {wishlist.name}${wishlist.total}
-        </button>
+        <WishlistButton key={wishlist.id} wishlist={wishlist} />
       ))}
+      <button onClick={handleAddWishlist}>Add wishlist</button>
     </div>
   )
 }
