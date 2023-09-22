@@ -16,12 +16,13 @@ const addItem = async (newItem) => {
   return response.data
 }
 
-//Update item
+//Update item based on item id
 const updateItem = async (item) => {
   const response = await axios.put(`${baseUrl}/${item.id}`, item)
   return response.data
 }
 
+//Delete item based on item id
 const deleteItem = async (itemId) => {
   const response = await axios.delete(`${baseUrl}/${itemId}`)
   return response.data
