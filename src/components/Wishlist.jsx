@@ -29,7 +29,6 @@ const Wishlist = () => {
 
   //addEmptyRow function adds an item row to the array
   const addEmptyRow = async () => {
-    const wishlistId = items[0].wishlist.id
     const newItem = {
       name: '',
       url: '',
@@ -56,7 +55,7 @@ const Wishlist = () => {
           console.log('making a request for this item', items[i])
         }
       }
-      const databaseItems = await itemsService.getAll()
+      const databaseItems = await itemsService.getAll(wishlistId)
       setOriginalItems(databaseItems)
       setItems(databaseItems)
       console.log(items)
