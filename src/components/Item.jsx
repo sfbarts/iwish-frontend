@@ -1,10 +1,22 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import itemsService from '../services/items'
 
 const Item = ({ item, items, setItems }) => {
   //newItem state now controls the inputs of each item
   //originalItem handles the item that is on the wishlist
-  const [originalItem, setOriginalItem] = useState(item)
-  const [newItem, setNewItem] = useState(item)
+  const [originalItem, setOriginalItem] = useState({})
+  const [newItem, setNewItem] = useState(null)
+
+  //Set items on every time the items being rendered change
+  useEffect(() => {
+    setNewItem(item)
+    setOriginalItem(item)
+  }, [item])
+
+  //only render once newItem has beens set
+  if (!newItem) {
+    return
+  }
 
   //addToItems function allows for modifications of the wishlists items which allow for an accurate total
   const addToItems = (updatedItem) => {
@@ -40,6 +52,12 @@ const Item = ({ item, items, setItems }) => {
     addToItems(newAcquired)
   }
 
+  const handleRemoveItem = async () => {
+    const updatedItems = items.filter((item) => item.id !== newItem.id)
+    setItems(updatedItems)
+    await itemsService.deleteItem(newItem.id)
+  }
+
   return (
     <li>
       <input
@@ -59,8 +77,9 @@ const Item = ({ item, items, setItems }) => {
         type="checkbox"
         value="acquired"
         onChange={handleAcquiredUpdate}
-        checked={item.acquired}
+        checked={newItem.acquired}
       />
+      <button onClick={handleRemoveItem}>Remove item</button>
     </li>
   )
 }

@@ -42,22 +42,23 @@ const Wishlist = () => {
   console.log(items === originalItems)
 
   //saveList function compare current items in wishlist with previous items and save changed items
-  const saveList = () => {
-    for (let i = 0; i < items.length; i++) {
-      if (items[i] !== originalItems[i]) {
-        itemsService.updateItem(items[i])
-        console.log('making a request for this item', items[i])
+  const saveList = async () => {
+    //check if the lists are different and if so compare each item to one another. Then send a request for the changed items.
+    if (items !== originalItems) {
+      for (let i = 0; i < items.length; i++) {
+        if (items[i] !== originalItems[i]) {
+          await itemsService.updateItem(items[i])
+          console.log('making a request for this item', items[i])
+        }
       }
-    }
-
-    if (items === originalItems) {
-      console.log('items are the same')
+      const databaseItems = await itemsService.getAll()
+      setOriginalItems(databaseItems)
+      setItems(databaseItems)
+      console.log(items)
     } else {
-      setOriginalItems(items)
+      console.log('items are the same. No loop run.')
     }
   }
-
-  console.log(items)
 
   //Get the name of the wishlist and the total price
   const wishlistName = items[0].wishlist.name
