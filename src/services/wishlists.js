@@ -9,4 +9,16 @@ const getAll = async () => {
   return request.data
 }
 
-export default { getAll }
+//Add new wishlist to a category
+const addWishlist = async (newWishlist) => {
+  const response = await axios.post(baseUrl, newWishlist)
+  return response.data
+}
+
+//Update wishlist based on wishlist id
+const updateWishlist = async (wishlist) => {
+  const response = await axios.put(`${baseUrl}/${wishlist.id}`, wishlist)
+  return response.data
+}
+
+export default { getAll, addWishlist, updateWishlist }
