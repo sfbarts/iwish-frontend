@@ -22,4 +22,9 @@ const updateItem = async (item) => {
   return response.data
 }
 
-export default { getAll, addItem, updateItem }
+const deleteItem = async (itemId) => {
+  const response = await axios.delete(`${baseUrl}/${itemId}`)
+  return response.data
+}
+
+export default { getAll, addItem, updateItem, deleteItem }
