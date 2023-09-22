@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, useLocation } from 'react-router-dom'
 import itemsService from '../services/items'
 import Item from './Item'
 
 const Wishlist = () => {
+  const wishlistData = useLocation()
+  const wishlistId = wishlistData.state.id
+  console.log(wishlistData)
+
   //control items state using useState
   const [originalItems, setOriginalItems] = useState(null)
   const [items, setItems] = useState(null)
@@ -10,7 +15,7 @@ const Wishlist = () => {
   //This useEffect get the items from the backend and assigns them to items state on render
   useEffect(() => {
     const getItems = async () => {
-      const initialItems = await itemsService.getAll()
+      const initialItems = await itemsService.getAll(wishlistId)
       setItems(initialItems)
       setOriginalItems(initialItems)
     }
@@ -61,7 +66,7 @@ const Wishlist = () => {
   }
 
   //Get the name of the wishlist and the total price
-  const wishlistName = items[0].wishlist.name
+  const wishlistName = wishlistData.state.name
   const total = items.reduce((sum, item) => sum + Number(item.price), 0)
 
   return (
