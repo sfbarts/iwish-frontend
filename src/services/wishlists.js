@@ -21,4 +21,10 @@ const updateWishlist = async (wishlist) => {
   return response.data
 }
 
-export default { getAll, addWishlist, updateWishlist }
+//Delete wishlists based on wishlist id
+const deleteWishlist = async (wishlistId) => {
+  const response = await axios.delete(`${baseUrl}/${wishlistId}`)
+  return response.data
+}
+
+export default { getAll, addWishlist, updateWishlist, deleteWishlist }

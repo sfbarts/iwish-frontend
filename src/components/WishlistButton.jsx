@@ -50,6 +50,13 @@ const WishlistButton = (props) => {
     setWishlist(newName)
   }
 
+  //handle wishlist deletion
+  const handleDeleteWishlist = async () => {
+    const updatedWishlists = props.wishlists.filter((w) => w.id !== wishlist.id)
+    props.setWishlists(updatedWishlists)
+    await wishlistsService.deleteWishlist(wishlist.id)
+  }
+
   return (
     <div>
       <div>
@@ -65,6 +72,7 @@ const WishlistButton = (props) => {
       <button onClick={(e) => handleWishlistClick(e, wishlist)}>
         See List
       </button>
+      <button onClick={handleDeleteWishlist}>Delete</button>
     </div>
   )
 }

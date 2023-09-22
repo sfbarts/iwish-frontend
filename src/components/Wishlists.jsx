@@ -41,7 +41,12 @@ const Wishlists = () => {
   return (
     <div>
       {wishlists.map((wishlist) => (
-        <WishlistButton key={wishlist.id} wishlist={wishlist} />
+        <WishlistButton
+          key={wishlist.id}
+          wishlist={wishlist}
+          wishlists={wishlists}
+          setWishlists={setWishlists}
+        />
       ))}
       <button onClick={handleAddWishlist}>Add wishlist</button>
     </div>
