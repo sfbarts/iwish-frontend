@@ -24,7 +24,7 @@ const WishlistButton = (props) => {
       window.alert('List needs a name')
       return
     }
-    navigate(`/wishlists/${wishlist.name}`, { state: wishlist })
+    navigate(`/wishlists/${wishlist.id}`, { state: wishlist })
   }
 
   //handle name edit button
@@ -68,7 +68,7 @@ const WishlistButton = (props) => {
         />
         <button onClick={(e) => handleEditClick(e)}>Edit Name</button>
       </div>
-      <p>Total cost: ${wishlist.total}</p>
+      <p>Total value: ${wishlist.total}</p>
       <button onClick={(e) => handleWishlistClick(e, wishlist)}>
         See List
       </button>

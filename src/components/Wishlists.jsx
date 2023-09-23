@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, useLocation } from 'react-router-dom'
 import wishlistsService from '../services/wishlists'
 import WishlistButton from './WishlistButton'
 
 const Wishlists = () => {
+  const categoryData = useLocation()
+  const categoryId = categoryData.state.id
+
   //Use wishlists state to control wishlists buttons
   const [wishlists, setWishlists] = useState(null)
 
   //get wishlists from database
   useEffect(() => {
     const getWishlists = async () => {
-      const initialWishlists = await wishlistsService.getAll()
+      const initialWishlists = await wishlistsService.getAll(categoryId)
       setWishlists(initialWishlists)
     }
 
@@ -24,7 +28,6 @@ const Wishlists = () => {
   console.log(wishlists)
 
   const handleAddWishlist = async () => {
-    const categoryId = wishlists[0].category.id
     const newWishlist = {
       name: '',
       category: categoryId,
@@ -32,7 +35,6 @@ const Wishlists = () => {
 
     //Save empty wishlist to the database
     const saveWishlist = await wishlistsService.addWishlist(newWishlist)
-    console.log(saveWishlist)
     const newWishlists = wishlists.concat(saveWishlist)
     setWishlists(newWishlists)
   }
@@ -40,6 +42,7 @@ const Wishlists = () => {
   //render a button for each list
   return (
     <div>
+      <h2>{categoryData.state.name}</h2>
       {wishlists.map((wishlist) => (
         <WishlistButton
           key={wishlist.id}
