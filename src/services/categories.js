@@ -2,11 +2,15 @@ import axios from 'axios'
 
 const baseUrl = 'http://localhost:3001/api/categories'
 
-//Get all items from a category
+//Get all categories
 const getAll = async () => {
-  //temporary user Id
-  const tempUserId = '650a14c573d510a95e0fb3bf'
-  const request = await axios.get(`${baseUrl}/${tempUserId}`)
+  const request = await axios.get(`${baseUrl}`)
+  return request.data
+}
+
+//get all wishlists from a category base on id
+const getCategory = async (categoryId) => {
+  const request = await axios.get(`${baseUrl}/${categoryId}`)
   return request.data
 }
 
@@ -28,4 +32,10 @@ const deleteCategory = async (categoryId) => {
   return response.data
 }
 
-export default { getAll, addCategory, updateCategory, deleteCategory }
+export default {
+  getAll,
+  getCategory,
+  addCategory,
+  updateCategory,
+  deleteCategory,
+}
