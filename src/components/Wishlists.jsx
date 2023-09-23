@@ -1,22 +1,24 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, useLocation } from 'react-router-dom'
+import { BrowserRouter as Router, useParams } from 'react-router-dom'
 import wishlistsService from '../services/wishlists'
+import categoriesService from '../services/categories'
 import WishlistButton from './WishlistButton'
 
 const Wishlists = () => {
-  const categoryData = useLocation()
-  const categoryId = categoryData.state.id
+  const categoryId = useParams().id
 
   //Use wishlists state to control wishlists buttons
   const [wishlists, setWishlists] = useState(null)
+  const [categoryName, setCategoryName] = useState('')
+
+  const getWishlists = async () => {
+    const category = await categoriesService.getCategory(categoryId)
+    setCategoryName(category[0].name)
+    setWishlists(category[1])
+  }
 
   //get wishlists from database
   useEffect(() => {
-    const getWishlists = async () => {
-      const initialWishlists = await wishlistsService.getAll(categoryId)
-      setWishlists(initialWishlists)
-    }
-
     getWishlists()
   }, [])
 
@@ -42,7 +44,7 @@ const Wishlists = () => {
   //render a button for each list
   return (
     <div>
-      <h2>{categoryData.state.name}</h2>
+      <h2>{categoryName}</h2>
       {wishlists.map((wishlist) => (
         <WishlistButton
           key={wishlist.id}
