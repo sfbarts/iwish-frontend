@@ -2,8 +2,9 @@ import axios from 'axios'
 
 const baseUrl = 'http://localhost:3001/api/wishlists'
 
-const getAll = async (categoryId) => {
-  const request = await axios.get(`${baseUrl}/${categoryId}`)
+//get a wishlist based on its id
+const getWishlist = async (wishlistId) => {
+  const request = await axios.get(`${baseUrl}/${wishlistId}`)
   return request.data
 }
 
@@ -25,4 +26,9 @@ const deleteWishlist = async (wishlistId) => {
   return response.data
 }
 
-export default { getAll, addWishlist, updateWishlist, deleteWishlist }
+export default {
+  getWishlist,
+  addWishlist,
+  updateWishlist,
+  deleteWishlist,
+}
