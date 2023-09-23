@@ -14,9 +14,9 @@ const addItem = async (newItem) => {
   return response.data
 }
 
-//Update item based on item id
-const updateItem = async (item) => {
-  const response = await axios.put(`${baseUrl}/${item.id}`, item)
+//Update items
+const updateItems = async (items) => {
+  const response = await axios.put(`${baseUrl}`, items)
   return response.data
 }
 
@@ -26,4 +26,4 @@ const deleteItem = async (itemId) => {
   return response.data
 }
 
-export default { getAll, addItem, updateItem, deleteItem }
+export default { getAll, addItem, updateItems, deleteItem }
