@@ -1,25 +1,31 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, useLocation } from 'react-router-dom'
+import { BrowserRouter as Router, useParams } from 'react-router-dom'
+import wishlistsService from '../services/wishlists'
 import itemsService from '../services/items'
 import Item from './Item'
 
 const Wishlist = () => {
-  const wishlistData = useLocation()
-  const wishlistId = wishlistData.state.id
-  console.log(wishlistData)
+  const wishlistId = useParams().id
 
   //control items state using useState
   const [originalItems, setOriginalItems] = useState(null)
   const [items, setItems] = useState(null)
+  const [wishlistName, setWishlistName] = useState('')
+
+  const getWishlist = async () => {
+    const initialName = await wishlistsService.getWishlist(wishlistId)
+    setWishlistName(initialName.name)
+  }
+
+  const getItems = async () => {
+    const initialItems = await itemsService.getAll(wishlistId)
+    setItems(initialItems)
+    setOriginalItems(initialItems)
+  }
 
   //This useEffect get the items from the backend and assigns them to items state on render
   useEffect(() => {
-    const getItems = async () => {
-      const initialItems = await itemsService.getAll(wishlistId)
-      setItems(initialItems)
-      setOriginalItems(initialItems)
-    }
-
+    getWishlist()
     getItems()
   }, [])
 
@@ -49,23 +55,19 @@ const Wishlist = () => {
   const saveList = async () => {
     //check if the lists are different and if so compare each item to one another. Then send a request for the changed items.
     if (items !== originalItems) {
+      let changedItems = []
       for (let i = 0; i < items.length; i++) {
         if (items[i] !== originalItems[i]) {
-          await itemsService.updateItem(items[i])
-          console.log('making a request for this item', items[i])
+          changedItems.push(items[i])
         }
       }
-      const databaseItems = await itemsService.getAll(wishlistId)
-      setOriginalItems(databaseItems)
-      setItems(databaseItems)
-      console.log(items)
+      const updateItems = await itemsService.updateItems(changedItems)
+      getItems()
     } else {
       console.log('items are the same. No loop run.')
     }
   }
 
-  //Get the name of the wishlist and the total price
-  const wishlistName = wishlistData.state.name
   const total = items.reduce((sum, item) => sum + Number(item.price), 0)
 
   return (
