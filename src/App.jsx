@@ -1,15 +1,7 @@
 import Wishlist from './components/Wishlist'
 import Wishlists from './components/Wishlists'
 import Categories from './components/Categories'
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-  Link,
-  useMatch,
-  useNavigate,
-} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 const App = () => {
   return (
