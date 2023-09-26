@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { Routes, Route } from 'react-router-dom'
 import Signup from './components/Signup'
 import CallbackView from './views/Callback'
@@ -7,6 +8,11 @@ import LoginView from './views/Login'
 import WishlistView from './views/Wishlist'
 
 const App = () => {
+  const { isLoading } = useAuth0()
+
+  if (isLoading) {
+    return <p>Loading...</p>
+  }
   return (
     <Routes>
       <Route path="/category/:id" element={<CategoryView />} />
