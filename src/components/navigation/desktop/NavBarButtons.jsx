@@ -5,7 +5,6 @@ import SignupButton from '../../buttons/signup-button'
 
 const NavBarButtons = () => {
   const { isAuthenticated } = useAuth0()
-  console.log(isAuthenticated)
 
   return (
     <div className="nav-bar__buttons">
