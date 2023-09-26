@@ -3,8 +3,12 @@ import axios from 'axios'
 const baseUrl = 'http://localhost:3001/api/categories'
 
 //Get all categories
-const getAll = async () => {
-  const request = await axios.get(`${baseUrl}`)
+const getAll = async (accessToken) => {
+  const config = {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  }
+
+  const request = await axios.get(`${baseUrl}`, config)
   return request.data
 }
 
