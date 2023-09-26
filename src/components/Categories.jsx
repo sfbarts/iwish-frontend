@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { useState, useEffect } from 'react'
 import categoriesService from '../services/categories'
 import CategoryButton from './CategoryButton'
@@ -7,20 +8,25 @@ const Categories = () => {
   const [categories, setCategories] = useState(null)
   const [newName, setNewName] = useState('')
 
+  const { getAccessTokenSilently } = useAuth0()
+
   //get wishlists from database
   useEffect(() => {
     const getCategories = async () => {
-      const initialCategories = await categoriesService.getAll()
+      const accessToken = await getAccessTokenSilently()
+      const initialCategories = await categoriesService.getAll(accessToken)
       setCategories(initialCategories)
     }
 
     getCategories()
-  }, [])
+  }, [getAccessTokenSilently])
 
   //only render when there are categories
   if (!categories) {
     return
   }
+
+  console.log(categories)
 
   //handleNewName controls input value
   const handleNewName = (e) => {
