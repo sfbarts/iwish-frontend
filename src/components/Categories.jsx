@@ -7,6 +7,7 @@ const Categories = () => {
   //Use categories state to control categories buttons
   const [categories, setCategories] = useState(null)
   const [newName, setNewName] = useState('')
+  const [accessToken, setAccessToken] = useState('')
 
   const { getAccessTokenSilently } = useAuth0()
 
@@ -16,6 +17,7 @@ const Categories = () => {
       const accessToken = await getAccessTokenSilently()
       const initialCategories = await categoriesService.getAll(accessToken)
       setCategories(initialCategories)
+      setAccessToken(accessToken)
     }
 
     getCategories()
@@ -26,8 +28,6 @@ const Categories = () => {
     return
   }
 
-  console.log(categories)
-
   //handleNewName controls input value
   const handleNewName = (e) => {
     setNewName(e.target.value)
@@ -35,7 +35,6 @@ const Categories = () => {
 
   //handleAddCategory controls adding new categories
   const handleAddCategory = async () => {
-    const userId = categories[0].user.id
     const name = newName
     if (!name) {
       window.alert('Category name is required')
@@ -43,11 +42,13 @@ const Categories = () => {
     }
     const newCategory = {
       name: name,
-      user: userId,
     }
 
     //Save empty category to the database
-    const saveCategory = await categoriesService.addCategory(newCategory)
+    const saveCategory = await categoriesService.addCategory(
+      accessToken,
+      newCategory
+    )
 
     const newCategories = categories.concat(saveCategory)
     console.log(saveCategory)
@@ -65,6 +66,7 @@ const Categories = () => {
           category={category}
           categories={categories}
           setCategories={setCategories}
+          accessToken={accessToken}
         />
       ))}
       <input

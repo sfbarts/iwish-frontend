@@ -34,8 +34,7 @@ const CategoryButton = (props) => {
       editButton.textContent = 'Save'
     } else {
       if (category.name !== originalCategory.name) {
-        console.log('Save only if changed')
-        await categoriesService.updateCategory(category)
+        await categoriesService.updateCategory(props.accessToken, category)
         setOriginalCategory(category)
       }
       editButton.textContent = 'Edit name'
@@ -55,7 +54,7 @@ const CategoryButton = (props) => {
       (c) => c.id !== category.id
     )
     props.setCategories(updatedCategories)
-    await categoriesService.deleteCategory(category.id)
+    await categoriesService.deleteCategory(props.accessToken, category.id)
   }
 
   return (

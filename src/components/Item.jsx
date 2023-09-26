@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import itemsService from '../services/items'
 
-const Item = ({ item, items, setItems }) => {
+const Item = ({ item, items, setItems, accessToken }) => {
   //newItem state now controls the inputs of each item
   //originalItem handles the item that is on the wishlist
   const [originalItem, setOriginalItem] = useState({})
@@ -55,7 +55,7 @@ const Item = ({ item, items, setItems }) => {
   const handleRemoveItem = async () => {
     const updatedItems = items.filter((item) => item.id !== newItem.id)
     setItems(updatedItems)
-    await itemsService.deleteItem(newItem.id)
+    await itemsService.deleteItem(accessToken, newItem.id)
   }
 
   return (

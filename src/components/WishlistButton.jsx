@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import wishlistsService from '../services/wishlists'
 
 const WishlistButton = (props) => {
@@ -35,8 +35,7 @@ const WishlistButton = (props) => {
       editButton.textContent = 'Save'
     } else {
       if (wishlist.name !== originalWishlist.name) {
-        console.log('Save only if changed')
-        await wishlistsService.updateWishlist(wishlist)
+        await wishlistsService.updateWishlist(props.accessToken, wishlist)
         setOriginalWishlist(wishlist)
       }
       editButton.textContent = 'Edit name'
@@ -54,7 +53,7 @@ const WishlistButton = (props) => {
   const handleDeleteWishlist = async () => {
     const updatedWishlists = props.wishlists.filter((w) => w.id !== wishlist.id)
     props.setWishlists(updatedWishlists)
-    await wishlistsService.deleteWishlist(wishlist.id)
+    await wishlistsService.deleteWishlist(props.accessToken, wishlist.id)
   }
 
   return (
