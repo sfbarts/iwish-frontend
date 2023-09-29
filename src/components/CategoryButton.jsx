@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BrowserRouter as Router, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import categoriesService from '../services/categories'
 
 const CategoryButton = (props) => {
