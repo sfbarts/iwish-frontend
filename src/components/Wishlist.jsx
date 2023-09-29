@@ -1,12 +1,15 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setWishlistLink } from '../reducers/wishlistLinkReducer'
 import wishlistsService from '../services/wishlists'
 import itemsService from '../services/items'
 import Item from './Item'
 
 const Wishlist = () => {
   const wishlistId = useParams().id
+  const dispatch = useDispatch()
 
   //control items state using useState
   const [originalItems, setOriginalItems] = useState(null)
@@ -26,6 +29,12 @@ const Wishlist = () => {
     setWishlistName(initialWishlist[0].name)
     setItems(initialWishlist[1])
     setOriginalItems(initialWishlist[1])
+    dispatch(
+      setWishlistLink({
+        name: initialWishlist[0].name,
+        path: `/wishlists/${wishlistId}`,
+      })
+    )
   }
 
   const getItems = async () => {

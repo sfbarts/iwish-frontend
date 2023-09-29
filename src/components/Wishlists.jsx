@@ -1,12 +1,15 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setCategoryLink } from '../reducers/categoryLinkReducer'
 import wishlistsService from '../services/wishlists'
 import categoriesService from '../services/categories'
 import WishlistButton from './WishlistButton'
 
 const Wishlists = () => {
   const categoryId = useParams().id
+  const dispatch = useDispatch()
 
   //Use wishlists state to control wishlists buttons
   const [wishlists, setWishlists] = useState(null)
@@ -24,6 +27,12 @@ const Wishlists = () => {
     setCategoryName(category[0].name)
     setWishlists(category[1])
     setAccessToken(accessToken)
+    dispatch(
+      setCategoryLink({
+        name: category[0].name,
+        path: `/category/${categoryId}`,
+      })
+    )
   }
 
   //get wishlists from database
