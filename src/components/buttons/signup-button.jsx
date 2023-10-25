@@ -15,7 +15,10 @@ const SignupButton = () => {
   }
 
   return (
-    <button className="button__sign-up" onClick={handleSignUp}>
+    <button
+      className="auth-button auth-button__signup medium upper bold"
+      onClick={handleSignUp}
+    >
       Sign Up
     </button>
   )
