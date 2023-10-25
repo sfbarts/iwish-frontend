@@ -1,0 +1,31 @@
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.auth-button {
+  color: var(--base-color);
+  padding: 0.65rem;
+  border: none;
+  border-radius: 1.2rem;
+  font-family: 'Roboto';
+  cursor: pointer;
+  width: 21rem;
+  transition: all 0.25s;
+}
+
+.auth-button__signup {
+  background: var(--pink-gradient);
+  border: 1px solid var(--pink-gradient);
+}
+
+.auth-button:hover {
+  transform: scale(1.1);
+}
+
+.auth-button__login {
+  background: linear-gradient(var(--dark-bg), var(--dark-bg)) padding-box,
+    var(--pink-gradient) border-box;
+  border: 2px solid transparent;
+}

@@ -1,0 +1,14 @@
+.welcome-card {
+  background-color: var(--dark-bg);
+  color: var(--base-color);
+  max-width: 750px;
+  margin-top: 16rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  row-gap: 2.4rem;
+  padding: 5.6rem 10rem;
+  text-align: center;
+  font-size: 1.8rem;
+  border-radius: 3.2rem;
+}
