@@ -1,6 +1,7 @@
 .welcome-card {
   background-color: var(--dark-bg);
   color: var(--base-color);
+  margin: 0 auto;
   max-width: 750px;
   margin-top: 16rem;
   display: grid;
