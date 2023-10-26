@@ -1,0 +1,11 @@
+.breadcrumbs {
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 2rem;
+  color: var(--category-main-color);
+}
+
+.breadcrumbs a {
+  text-decoration: none;
+  color: var(--category-main-color);
+}

@@ -6,8 +6,8 @@ const Breadcrumbs = () => {
   const wishlistLink = useSelector((state) => state.wishlistLink)
 
   return (
-    <div>
-      <Link to="/">Home</Link> /
+    <div className="breadcrumbs">
+      <Link to="/">Categories</Link> /
       {categoryLink.name.length > 0 ? (
         <>
           <Link to={categoryLink.path}>{categoryLink.name}</Link> /
