@@ -1,0 +1,94 @@
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(22rem, 22rem));
+  column-gap: 2.6rem;
+  margin: 0 2rem;
+}
+
+.card {
+  height: 28rem;
+  max-width: 22rem;
+  border-radius: 3rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-items: center;
+  padding: 1rem 1rem;
+  color: var(--white);
+}
+
+.card-name {
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.input-name {
+  width: 100%;
+  border: none;
+  background-color: var(--category-light-accent);
+  color: var(--category-edit-color);
+  padding: 0.4rem 0 0.4rem 0.4rem;
+  border-radius: 0.4rem;
+  border-bottom: 2px solid var(--category-main-color);
+}
+
+.input-name::placeholder {
+  color: var(--category-placeholder-accent);
+  text-transform: capitalize;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.input-name:focus {
+  outline: none;
+  font-style: italic;
+}
+
+.input-name:focus::placeholder {
+  color: transparent;
+}
+
+.card-icon {
+  font-size: 3.2rem;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.card-icon.delete-icon {
+  align-self: start;
+  justify-self: end;
+}
+
+.card-icon.edit-icon {
+  display: flex;
+  align-items: center;
+  font-size: 3rem;
+}
+
+.card__add {
+  background-color: transparent;
+  border-width: 2px;
+  border-style: dashed;
+}
+
+.card-icon.add-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--category-main-color);
+  border: 2px dashed var(--category-main-color);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.card__add-category {
+  border-color: var(--category-main-color);
+}
+
+.card__category {
+  background-color: var(--category-main-color);
+}

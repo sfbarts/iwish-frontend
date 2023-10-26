@@ -58,8 +58,7 @@ const Categories = () => {
 
   //render a button for each category
   return (
-    <div>
-      <h2>Your Categories</h2>
+    <div className="cards-container">
       {categories.map((category) => (
         <CategoryButton
           key={category.id}
@@ -69,13 +68,18 @@ const Categories = () => {
           accessToken={accessToken}
         />
       ))}
-      <input
-        type="text"
-        placeholder="category name"
-        onChange={handleNewName}
-        value={newName}
-      />
-      <button onClick={handleAddCategory}>Add category</button>
+      <div className="card card__add card__add-category">
+        <input
+          className="input-name medium"
+          type="text"
+          placeholder="category name"
+          onChange={handleNewName}
+          value={newName}
+        />
+        <div className="card-icon add-icon" onClick={handleAddCategory}>
+          +
+        </div>
+      </div>
     </div>
   )
 }
