@@ -29,3 +29,10 @@
     var(--pink-gradient) border-box;
   border: 2px solid transparent;
 }
+
+.auth-button__logout {
+  background: linear-gradient(var(--dark-bg), var(--dark-bg)) padding-box,
+    var(--pink-gradient) border-box;
+  border: 2px solid transparent;
+  width: 17rem;
+}

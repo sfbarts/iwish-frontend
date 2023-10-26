@@ -1,13 +1,13 @@
-import NavBarButtons from './NavBarButtons'
+import LogoutButton from '../../buttons/logout-button'
 
 const NavBar = () => {
   return (
-    <div>
-      <nav>
-        <p>Logo Placeholder</p>
-        <NavBarButtons />
+    <header className="nav-bar">
+      <p className="logo large">iWISH - temp</p>
+      <nav className="user-menu">
+        <LogoutButton />
       </nav>
-    </div>
+    </header>
   )
 }
 

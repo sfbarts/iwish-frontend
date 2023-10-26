@@ -12,7 +12,10 @@ const LogoutButton = () => {
   }
 
   return (
-    <button className="button__logout" onClick={handleLogout}>
+    <button
+      className="auth-button auth-button__logout regular upper bold"
+      onClick={handleLogout}
+    >
       Log Out
     </button>
   )
