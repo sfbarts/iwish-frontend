@@ -10,8 +10,8 @@ const Breadcrumbs = () => {
       <Link to="/">Categories</Link> /
       {categoryLink.name.length > 0 ? (
         <>
-          <Link to={categoryLink.path}>{categoryLink.name}</Link> /
-          <Link to={wishlistLink.path}>{wishlistLink.name}</Link>
+          <Link to={categoryLink.path}> {categoryLink.name}</Link> /
+          <Link to={wishlistLink.path}> {wishlistLink.name}</Link>
         </>
       ) : (
         ''
