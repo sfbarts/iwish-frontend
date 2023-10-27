@@ -1,31 +1,17 @@
-import { useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import categoriesService from '../services/categories'
 
 const CategoryButton = (props) => {
-  //define useNavigate to use it later for routing to each specific category
-  const navigate = useNavigate()
-
   //originalCategory handles original states to compare if changes have been made
   //category state handles the category state
   const [originalCategory, setOriginalCategory] = useState(props.category)
   const [category, setCategory] = useState(props.category)
   const [editing, setEditing] = useState(false)
 
-  const inputRef = useRef(null)
-
   //only render when there are wishlists
   if (!category) {
     return
-  }
-
-  //handle each category button to show a specific category
-  const handleCategoryClick = (e, category) => {
-    if (!category.name) {
-      window.alert('Category needs a name')
-      return
-    }
-    navigate(`/category/${category.id}`, { state: category })
   }
 
   //handle name edit button
@@ -73,7 +59,7 @@ const CategoryButton = (props) => {
           <p className="upper bold medium">{category.name}</p>
         ) : (
           <input
-            className="input-name medium"
+            className="input-name input-name__category medium"
             type="text"
             value={category.name}
             onChange={handleNameChange}
@@ -88,12 +74,9 @@ const CategoryButton = (props) => {
           ></ion-icon>
         </div>
       </div>
-      <div className="card-icon">
-        <ion-icon
-          onClick={(e) => handleCategoryClick(e, category)}
-          name="eye"
-        ></ion-icon>
-      </div>
+      <Link className="card-icon" to={`/category/${category.id}`}>
+        <ion-icon name="eye"></ion-icon>
+      </Link>
     </div>
   )
 }
