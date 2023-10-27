@@ -10,6 +10,10 @@
   --category-light-accent: #fde0e7;
   --category-placeholder-accent: #f7819d;
   --category-edit-color: #ac455d;
+  --wishlists-main-color: #ae62f5;
+  --wishlists-light-accent: #eedefc;
+  --wishlists-placeholder-accent: #be81f7;
+  --wishlists-edit-color: #7a45ac;
 
   --pink-gradient: linear-gradient(
     145deg,
