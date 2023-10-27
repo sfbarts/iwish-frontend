@@ -1,0 +1,133 @@
+/* WISHLIST */
+
+.wishlist-container {
+  margin: 0 auto;
+  max-width: 70%;
+  height: 80vh;
+  background-color: var(--wishlist-main-color);
+  border-radius: 3rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 5rem 1fr 4rem;
+  justify-items: center;
+  align-items: start;
+  padding: 2rem 2.5rem;
+  color: var(--white);
+  box-shadow: 0px 4px 12px 5px #684d8152;
+}
+
+.wishlist-header {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+}
+
+.wishlist-title {
+  grid-column-start: 2;
+}
+
+.wishlist-list {
+  display: grid;
+  grid-template-columns: 4fr 6fr 2fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  column-gap: 1.6rem;
+  row-gap: 1rem;
+}
+
+.wishlist-add-item {
+  grid-column: 1 / -1;
+}
+
+.wishlist-total {
+  align-self: end;
+}
+
+/* ITEMS */
+
+.input-item {
+  width: 100%;
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.4rem;
+  color: var(--wishlist-input-color);
+  border: none;
+}
+
+.input-item:focus {
+  outline: none;
+}
+
+.item-price {
+  text-align: center;
+}
+
+.item-price::placeholder {
+  color: var(--wishlist-placeholder-accent);
+}
+
+.item-price:focus::placeholder {
+  color: transparent;
+}
+
+.checkbox {
+  appearance: none;
+  width: 2rem;
+  height: 2rem;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 0.4rem;
+  cursor: pointer;
+
+  display: grid;
+  place-content: center;
+  transition: all 120ms ease-in-out;
+}
+
+.checkbox:checked {
+  background-color: var(--white);
+}
+
+.checkbox::before {
+  content: '';
+  width: 1.2rem;
+  height: 1.2rem;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1.2rem 1.2rem var(--wishlist-main-color);
+  transform-origin: center;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.checkbox:checked::before {
+  transform: scale(1);
+}
+
+.trash-icon ion-icon {
+  font-size: 3rem;
+  cursor: pointer;
+}
+
+/* ADD ITEM */
+.wishlist-add-item {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  border: 1px dashed var(--wishlist-light-accent);
+  border-radius: 1rem;
+  padding: 0.5rem 0;
+  color: var(--wishlist-light-accent);
+}
+
+.add-icon__item {
+  width: 25px;
+  height: 25px;
+  line-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  color: inherit;
+  border: 2px dashed var(--wishlist-light-accent);
+}
