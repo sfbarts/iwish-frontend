@@ -21,6 +21,10 @@ body {
   font-size: 1.6rem;
 }
 
+.regular-medium {
+  font-size: 2rem;
+}
+
 .medium {
   font-size: 2.4rem;
 }
@@ -29,10 +33,21 @@ body {
   font-size: 3.4rem;
 }
 
+.semi-bold {
+  font-weight: 500;
+}
+
 .bold {
   font-weight: 700;
 }
 
 .upper {
   text-transform: uppercase;
+}
+
+/* INPUTS */
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  appearance: none;
 }
