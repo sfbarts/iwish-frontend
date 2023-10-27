@@ -1,8 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useParams, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { setWishlistLink } from '../reducers/wishlistLinkReducer'
+import { setCategoryLink } from '../reducers/categoryLinkReducer'
 import wishlistsService from '../services/wishlists'
 import itemsService from '../services/items'
 import Item from './Item'
@@ -10,6 +11,8 @@ import Item from './Item'
 const Wishlist = () => {
   const wishlistId = useParams().id
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const categoryLink = useSelector((state) => state.categoryLink.path)
 
   //control items state using useState
   const [originalItems, setOriginalItems] = useState(null)
@@ -35,6 +38,12 @@ const Wishlist = () => {
         path: `/wishlists/${wishlistId}`,
       })
     )
+    dispatch(
+      setCategoryLink({
+        name: initialWishlist[0].category.name,
+        path: `/category/${initialWishlist[0].category.id}`,
+      })
+    )
   }
 
   const getItems = async () => {
@@ -57,7 +66,6 @@ const Wishlist = () => {
     const newItem = {
       name: '',
       url: '',
-      price: '',
       wishlist: wishlistId,
     }
 
@@ -67,11 +75,14 @@ const Wishlist = () => {
     const newItems = items.concat(saveItem)
     setItems(newItems)
   }
-  console.log(items)
+
   //saveList function compare current items in wishlist with previous items and save changed items
   const saveList = async () => {
+    if (items.length !== originalItems.length) {
+      getItems()
+    }
     //check if the lists are different and if so compare each item to one another. Then send a request for the changed items.
-    if (items !== originalItems) {
+    else if (items !== originalItems) {
       let changedItems = []
       for (let i = 0; i < items.length; i++) {
         if (items[i] !== originalItems[i]) {
@@ -86,14 +97,28 @@ const Wishlist = () => {
     } else {
       console.log('items are the same. No loop run.')
     }
+
+    navigate(categoryLink)
   }
 
-  const total = items.reduce((sum, item) => sum + Number(item.price), 0)
+  const total = items
+    .reduce((sum, item) => sum + Number(item.price), 0)
+    .toFixed(2)
 
   return (
-    <div>
-      <h2>{wishlistName}</h2>
-      <ul>
+    <div className="wishlist-container">
+      <div className="wishlist-header">
+        <h1 className="wishlist-title">{wishlistName}</h1>
+        <div className="card-icon delete-icon">
+          <ion-icon onClick={saveList} name="close-circle-outline"></ion-icon>
+        </div>
+      </div>
+      <div className="wishlist-list">
+        <p className="regular-medium semi-bold">Item</p>
+        <p className="regular-medium semi-bold">Link/Store</p>
+        <p className="regular-medium semi-bold">Price</p>
+        <p className="regular-medium semi-bold">Acquired</p>
+        <span></span>
         {items.map((item) => (
           <Item
             key={item.id}
@@ -103,10 +128,14 @@ const Wishlist = () => {
             accessToken={accessToken}
           />
         ))}
-      </ul>
-      <button onClick={addEmptyRow}>Add Item</button>
-      <button onClick={saveList}>Save List</button>
-      <p>Total: {total}</p>
+        <div className="wishlist-add-item">
+          <div className="add-icon__item regular-medium" onClick={addEmptyRow}>
+            +
+          </div>
+        </div>
+      </div>
+
+      <p className="wishlist-total medium semi-bold">Total: ${total}</p>
     </div>
   )
 }
