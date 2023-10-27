@@ -14,6 +14,7 @@ const Wishlists = () => {
   //Use wishlists state to control wishlists buttons
   const [wishlists, setWishlists] = useState(null)
   const [categoryName, setCategoryName] = useState('')
+  const [newName, setNewName] = useState('')
   const [accessToken, setAccessToken] = useState('')
 
   const { getAccessTokenSilently } = useAuth0()
@@ -45,9 +46,19 @@ const Wishlists = () => {
     return
   }
 
+  //handleNewName controls input value
+  const handleNewName = (e) => {
+    setNewName(e.target.value)
+  }
+
   const handleAddWishlist = async () => {
+    const name = newName
+    if (!name) {
+      window.alert('Wishlist name is required')
+      return
+    }
     const newWishlist = {
-      name: '',
+      name: name,
       category: categoryId,
     }
 
@@ -58,12 +69,12 @@ const Wishlists = () => {
     )
     const newWishlists = wishlists.concat(saveWishlist)
     setWishlists(newWishlists)
+    setNewName('')
   }
 
   //render a button for each list
   return (
-    <div>
-      <h2>{categoryName}</h2>
+    <div className="cards-container">
       {wishlists.map((wishlist) => (
         <WishlistButton
           key={wishlist.id}
@@ -73,7 +84,18 @@ const Wishlists = () => {
           accessToken={accessToken}
         />
       ))}
-      <button onClick={handleAddWishlist}>Add wishlist</button>
+      <div className="card card__add card__add-wishlist">
+        <input
+          className="input-name input-name__wishlist medium"
+          type="text"
+          placeholder="wishlist name"
+          onChange={handleNewName}
+          value={newName}
+        />
+        <div className="card-icon add-icon" onClick={handleAddWishlist}>
+          +
+        </div>
+      </div>
     </div>
   )
 }
