@@ -1,11 +1,8 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import wishlistsService from '../services/wishlists'
 
 const WishlistButton = (props) => {
-  //define useNavigate to use it later for routing to each specific list
-  const navigate = useNavigate()
-
   //originalWishlist handles original states to compare if changes have been made
   //wishlist state handles the wishlist
   //Name handles the state for updating
@@ -18,27 +15,18 @@ const WishlistButton = (props) => {
     return
   }
 
-  //handle each wishlist button to show a specific list
-  const handleWishlistClick = (e, wishlist) => {
-    if (!wishlist.name) {
-      window.alert('List needs a name')
-      return
-    }
-    navigate(`/wishlists/${wishlist.id}`, { state: wishlist })
-  }
-
   //handle name edit button
   const handleEditClick = async (e) => {
     const editButton = e.target
 
     if (!editing) {
-      editButton.textContent = 'Save'
+      editButton.name = 'save'
     } else {
       if (wishlist.name !== originalWishlist.name) {
         await wishlistsService.updateWishlist(props.accessToken, wishlist)
         setOriginalWishlist(wishlist)
       }
-      editButton.textContent = 'Edit name'
+      editButton.name = 'pencil-outline'
     }
     setEditing(!editing)
   }
@@ -57,21 +45,36 @@ const WishlistButton = (props) => {
   }
 
   return (
-    <div>
-      <div>
-        <input
-          type="text"
-          value={wishlist.name}
-          readOnly={!editing}
-          onChange={handleNameChange}
-        />
-        <button onClick={(e) => handleEditClick(e)}>Edit Name</button>
+    <div className="card card__wishlist">
+      <div className="card-icon delete-icon">
+        <ion-icon
+          onClick={handleDeleteWishlist}
+          name="close-circle-outline"
+        ></ion-icon>
       </div>
-      <p>Total value: ${wishlist.total}</p>
-      <button onClick={(e) => handleWishlistClick(e, wishlist)}>
-        See List
-      </button>
-      <button onClick={handleDeleteWishlist}>Delete</button>
+      <div className="card-name">
+        {!editing ? (
+          <p className="upper bold medium">{wishlist.name}</p>
+        ) : (
+          <input
+            className="input-name input-name__wishlist medium"
+            type="text"
+            value={wishlist.name}
+            onChange={handleNameChange}
+            autoFocus
+          />
+        )}
+        <div className="card-icon edit-icon">
+          <ion-icon
+            onClick={(e) => handleEditClick(e)}
+            name="pencil-outline"
+          ></ion-icon>
+        </div>
+      </div>
+      <p className="medium">${wishlist.total}</p>
+      <Link className="card-icon" to={`/wishlists/${wishlist.id}`}>
+        <ion-icon name="eye"></ion-icon>
+      </Link>
     </div>
   )
 }
