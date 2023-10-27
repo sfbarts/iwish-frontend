@@ -9,7 +9,7 @@ const Item = ({ item, items, setItems, accessToken }) => {
 
   //Set items on every time the items being rendered change
   useEffect(() => {
-    setNewItem(item)
+    setNewItem({ ...item, price: item.price > 0 ? item.price : '' })
     setOriginalItem(item)
   }, [item])
 
@@ -41,9 +41,9 @@ const Item = ({ item, items, setItems, accessToken }) => {
   }
 
   const handlePriceUpdate = (e) => {
-    const newPrice = { ...newItem, price: Number(e.target.value) }
-    setNewItem(newPrice)
-    addToItems(newPrice)
+    const newPrice = e.target.value
+    setNewItem({ ...newItem, price: newPrice })
+    addToItems({ ...newItem, price: newPrice })
   }
 
   const handleAcquiredUpdate = (e) => {
@@ -59,28 +59,40 @@ const Item = ({ item, items, setItems, accessToken }) => {
   }
 
   return (
-    <li>
+    <>
       <input
+        className="input-item regular"
         type="text"
         value={newItem.name}
         onChange={handleNameUpdate}
         onBlur={() => addToItems(newItem)}
       />
       <input
+        className="input-item regular"
         type="text"
         value={newItem.url}
         onChange={handleUrlUpdate}
         onBlur={() => addToItems(newItem)}
       />
-      <input type="text" value={newItem.price} onChange={handlePriceUpdate} />
       <input
+        className="input-item regular item-price"
+        type="number"
+        value={newItem.price}
+        onChange={handlePriceUpdate}
+        onFocus={handlePriceFocus}
+        placeholder="0.0"
+      />
+      <input
+        className="checkbox"
         type="checkbox"
         value="acquired"
         onChange={handleAcquiredUpdate}
         checked={newItem.acquired}
       />
-      <button onClick={handleRemoveItem}>Remove item</button>
-    </li>
+      <div className="trash-icon">
+        <ion-icon onClick={handleRemoveItem} name="trash"></ion-icon>
+      </div>
+    </>
   )
 }
 
