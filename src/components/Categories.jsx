@@ -70,7 +70,7 @@ const Categories = () => {
       ))}
       <div className="card card__add card__add-category">
         <input
-          className="input-name medium"
+          className="input-name input-name__category medium"
           type="text"
           placeholder="category name"
           onChange={handleNewName}
