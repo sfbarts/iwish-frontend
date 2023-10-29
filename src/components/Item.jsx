@@ -79,7 +79,6 @@ const Item = ({ item, items, setItems, accessToken }) => {
         type="number"
         value={newItem.price}
         onChange={handlePriceUpdate}
-        onFocus={handlePriceFocus}
         placeholder="0.0"
       />
       <input
