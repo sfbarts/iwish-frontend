@@ -1,11 +1,24 @@
 .breadcrumbs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   padding: 2rem 0;
   text-align: center;
   font-size: 2rem;
   color: var(--category-main-color);
 }
 
-.breadcrumbs a {
+.breadcrumb-link {
+  display: block;
   text-decoration: none;
   color: var(--category-main-color);
+  border-bottom: 1px solid transparent;
+  transition: all 0.25s ease-in;
+}
+
+.breadcrumb-link:hover {
+  border-bottom: 1px solid;
+  color: var(--wishlist-main-color);
+  transform: scale(1.05);
 }
