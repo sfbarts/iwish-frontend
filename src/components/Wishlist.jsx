@@ -78,24 +78,22 @@ const Wishlist = () => {
 
   //saveList function compare current items in wishlist with previous items and save changed items
   const saveList = async () => {
-    if (items.length !== originalItems.length) {
-      getItems()
-    }
     //check if the lists are different and if so compare each item to one another. Then send a request for the changed items.
-    else if (items !== originalItems) {
+    if (items !== originalItems) {
       let changedItems = []
       for (let i = 0; i < items.length; i++) {
         if (items[i] !== originalItems[i]) {
           changedItems.push(items[i])
         }
       }
-      const updateItems = await itemsService.updateItems(
-        accessToken,
-        changedItems
-      )
-      getItems()
-    } else {
-      console.log('items are the same. No loop run.')
+
+      if (changedItems.length) {
+        const updateItems = await itemsService.updateItems(
+          accessToken,
+          changedItems
+        )
+        getItems()
+      }
     }
 
     navigate(categoryLink)
