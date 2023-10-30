@@ -72,6 +72,12 @@ const Wishlists = () => {
     setNewName('')
   }
 
+  const handleEnterPress = (e) => {
+    if (e.key === 'Enter') {
+      handleAddWishlist()
+    }
+  }
+
   //render a button for each list
   return (
     <div className="cards-container">
@@ -90,6 +96,7 @@ const Wishlists = () => {
           type="text"
           placeholder="wishlist name"
           onChange={handleNewName}
+          onKeyDown={handleEnterPress}
           value={newName}
         />
         <div className="card-icon add-icon" onClick={handleAddWishlist}>

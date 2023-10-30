@@ -56,6 +56,12 @@ const Categories = () => {
     setNewName('')
   }
 
+  const handleEnterPress = (e) => {
+    if (e.key === 'Enter') {
+      handleAddCategory()
+    }
+  }
+
   //render a button for each category
   return (
     <div className="cards-container">
@@ -74,6 +80,7 @@ const Categories = () => {
           type="text"
           placeholder="category name"
           onChange={handleNewName}
+          onKeyDown={handleEnterPress}
           value={newName}
         />
         <div className="card-icon add-icon" onClick={handleAddCategory}>
