@@ -52,9 +52,9 @@ const WishlistButton = (props) => {
           name="close-circle-outline"
         ></ion-icon>
       </div>
-      <div className="card-name">
+      <div className="card-name-container">
         {!editing ? (
-          <p className="upper bold medium">{wishlist.name}</p>
+          <p className="card-name upper bold medium">{wishlist.name}</p>
         ) : (
           <input
             className="input-name input-name__wishlist medium"

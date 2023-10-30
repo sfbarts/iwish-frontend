@@ -54,9 +54,9 @@ const CategoryButton = (props) => {
           name="close-circle-outline"
         ></ion-icon>
       </div>
-      <div className="card-name">
+      <div className="card-name-container">
         {!editing ? (
-          <p className="upper bold medium">{category.name}</p>
+          <p className="card-name upper bold medium">{category.name}</p>
         ) : (
           <input
             className="input-name input-name__category medium"
