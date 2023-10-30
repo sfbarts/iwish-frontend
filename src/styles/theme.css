@@ -4,8 +4,8 @@
   --white: #fff;
   --base-color: #fdf4fe;
   --dark-bg: #241235;
-  --logo-right-pink: #f86f64;
-  --logo-left-pink: #fd5392;
+  --logo-right-pink: #f089e5;
+  --logo-left-pink: #ff7595;
   --category-main-color: #f56285;
   --category-light-accent: #fde0e7;
   --category-placeholder-accent: #f7819d;
@@ -20,6 +20,8 @@
   --wishlist-input-color: #5c3482;
   --wishlist-light-accent: #f9defd;
   --wishlist-placeholder-accent: #a891bd;
+
+  --breadcrumb-hover-accent: #a861d5;
 
   --pink-gradient: linear-gradient(
     145deg,

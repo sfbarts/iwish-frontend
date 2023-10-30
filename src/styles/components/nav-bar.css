@@ -12,6 +12,13 @@
 
 .logo {
   grid-column-start: 2;
+  width: 130px;
+  padding-bottom: 1.2rem;
+}
+
+.logo__welcome {
+  width: 110px;
+  padding-bottom: 0;
 }
 
 .user-menu {

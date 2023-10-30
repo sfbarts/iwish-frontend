@@ -3,7 +3,14 @@ import WelcomeCard from '../components/WelcomeCard'
 const LoginView = () => {
   return (
     <WelcomeCard>
-      <h1 className="bold upper large">Welcome to iWish!</h1>
+      <h1 className="bold upper large">
+        Welcome to{' '}
+        <img
+          className="logo logo__welcome"
+          src="/assets/IWish_Logo_600x206.png"
+        />
+        !
+      </h1>
       <p>
         iWISH is an app that lets you put in sight everything that you ever
         wanted.
