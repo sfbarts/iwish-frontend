@@ -61,6 +61,7 @@ const WishlistButton = (props) => {
             type="text"
             value={wishlist.name}
             onChange={handleNameChange}
+            maxLength={50}
             autoFocus
           />
         )}

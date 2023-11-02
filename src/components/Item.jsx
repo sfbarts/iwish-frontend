@@ -66,6 +66,7 @@ const Item = ({ item, items, setItems, accessToken }) => {
         value={newItem.name}
         onChange={handleNameUpdate}
         onBlur={() => addToItems(newItem)}
+        maxLength={100}
       />
       <input
         className="input-item regular"
@@ -73,6 +74,7 @@ const Item = ({ item, items, setItems, accessToken }) => {
         value={newItem.url}
         onChange={handleUrlUpdate}
         onBlur={() => addToItems(newItem)}
+        maxLength={400}
       />
       <input
         className="input-item regular item-price"

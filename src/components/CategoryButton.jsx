@@ -63,6 +63,7 @@ const CategoryButton = (props) => {
             type="text"
             value={category.name}
             onChange={handleNameChange}
+            maxLength={20}
             autoFocus
           />
         )}
