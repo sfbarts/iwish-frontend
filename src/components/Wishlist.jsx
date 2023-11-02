@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setWishlistLink } from '../reducers/wishlistLinkReducer'
 import { setCategoryLink } from '../reducers/categoryLinkReducer'
+import { setNotification } from '../reducers/notificationReducer'
 import wishlistsService from '../services/wishlists'
 import itemsService from '../services/items'
 import Item from './Item'
@@ -23,27 +24,39 @@ const Wishlist = () => {
   const { getAccessTokenSilently } = useAuth0()
 
   const getWishlist = async () => {
-    const accessToken = await getAccessTokenSilently()
-    setAccessToken(accessToken)
-    const initialWishlist = await wishlistsService.getWishlist(
-      accessToken,
-      wishlistId
-    )
-    setWishlistName(initialWishlist[0].name)
-    setItems(initialWishlist[1])
-    setOriginalItems(initialWishlist[1])
-    dispatch(
-      setWishlistLink({
-        name: initialWishlist[0].name,
-        path: `/wishlists/${wishlistId}`,
-      })
-    )
-    dispatch(
-      setCategoryLink({
-        name: initialWishlist[0].category.name,
-        path: `/category/${initialWishlist[0].category.id}`,
-      })
-    )
+    try {
+      const accessToken = await getAccessTokenSilently()
+      setAccessToken(accessToken)
+      const initialWishlist = await wishlistsService.getWishlist(
+        accessToken,
+        wishlistId
+      )
+      setWishlistName(initialWishlist[0].name)
+      setItems(initialWishlist[1])
+      setOriginalItems(initialWishlist[1])
+      dispatch(
+        setWishlistLink({
+          name: initialWishlist[0].name,
+          path: `/wishlists/${wishlistId}`,
+        })
+      )
+      dispatch(
+        setCategoryLink({
+          name: initialWishlist[0].category.name,
+          path: `/category/${initialWishlist[0].category.id}`,
+        })
+      )
+    } catch (e) {
+      dispatch(
+        setNotification(
+          {
+            message: 'Invalid URL, redirecting to home...',
+            type: 'axiosError',
+          },
+          3
+        )
+      )
+    }
   }
 
   const getItems = async () => {
@@ -107,7 +120,8 @@ const Wishlist = () => {
     <div className="wishlist-container">
       <div className="wishlist-header">
         <h1 className="wishlist-title">{wishlistName}</h1>
-        <div className="card-icon delete-icon">
+        <div className="wishlist-close card-icon delete-icon">
+          <p className="close-text">Close to save!</p>
           <ion-icon onClick={saveList} name="close-circle-outline"></ion-icon>
         </div>
       </div>

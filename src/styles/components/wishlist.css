@@ -27,6 +27,17 @@
   grid-column-start: 2;
 }
 
+.wishlist-close {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.wishlist-close p {
+  font-size: 1.6rem;
+  cursor: default;
+}
+
 .wishlist-list {
   display: grid;
   grid-template-columns: 4fr 6fr 2fr 1fr 1fr;
