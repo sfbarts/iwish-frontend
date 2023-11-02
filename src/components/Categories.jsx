@@ -39,6 +39,20 @@ const Categories = () => {
 
   //handleAddCategory controls adding new categories
   const handleAddCategory = async () => {
+    if (categories.length === 10) {
+      dispatch(
+        setNotification(
+          {
+            message:
+              'You have reached the max category limit of 10. Please delete one to continue.',
+            type: 'error',
+          },
+          3
+        )
+      )
+      return
+    }
+
     const name = newName
     if (!name) {
       dispatch(

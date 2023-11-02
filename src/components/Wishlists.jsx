@@ -65,6 +65,18 @@ const Wishlists = () => {
   }
 
   const handleAddWishlist = async () => {
+    if (wishlists.length === 10) {
+      dispatch(
+        setNotification(
+          {
+            message: 'You can only have a max of 10 wishlists per category.',
+            type: 'error',
+          },
+          3
+        )
+      )
+      return
+    }
     const name = newName
     if (!name) {
       dispatch(

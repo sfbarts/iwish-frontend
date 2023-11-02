@@ -76,6 +76,19 @@ const Wishlist = () => {
 
   //addEmptyRow function adds an item row to the array
   const addEmptyRow = async () => {
+    if (items.length === 30) {
+      dispatch(
+        setNotification(
+          {
+            message: 'You can only have a max of 30 items per wishlist.',
+            type: 'error',
+          },
+          3
+        )
+      )
+      return
+    }
+
     const newItem = {
       name: '',
       url: '',
