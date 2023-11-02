@@ -138,14 +138,13 @@ const Wishlist = () => {
           <ion-icon onClick={saveList} name="close-circle-outline"></ion-icon>
         </div>
       </div>
-      <div className="wishlist-headers">
-        <p className="regular-medium semi-bold">Item</p>
-        <p className="regular-medium semi-bold">Link/Store</p>
-        <p className="regular-medium semi-bold">Price</p>
-        <p className="regular-medium semi-bold">Acquired</p>
-        <span></span>
-      </div>
+
       <div className="wishlist-list">
+        <p className="wishlist-header regular-medium semi-bold">Item</p>
+        <p className="wishlist-header regular-medium semi-bold">Link/Store</p>
+        <p className="wishlist-header regular-medium semi-bold">Price</p>
+        <p className="wishlist-header regular-medium semi-bold">Acquired</p>
+        <div className="wishlist-header"></div>
         {items.map((item) => (
           <Item
             key={item.id}
