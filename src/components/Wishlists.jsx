@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setCategoryLink } from '../reducers/categoryLinkReducer'
+import { setNotification } from '../reducers/notificationReducer'
 import wishlistsService from '../services/wishlists'
 import categoriesService from '../services/categories'
 import WishlistButton from './WishlistButton'
@@ -20,20 +21,32 @@ const Wishlists = () => {
   const { getAccessTokenSilently } = useAuth0()
 
   const getWishlists = async () => {
-    const accessToken = await getAccessTokenSilently()
-    const category = await categoriesService.getCategory(
-      accessToken,
-      categoryId
-    )
-    setCategoryName(category[0].name)
-    setWishlists(category[1])
-    setAccessToken(accessToken)
-    dispatch(
-      setCategoryLink({
-        name: category[0].name,
-        path: `/category/${categoryId}`,
-      })
-    )
+    try {
+      const accessToken = await getAccessTokenSilently()
+      const category = await categoriesService.getCategory(
+        accessToken,
+        categoryId
+      )
+      setCategoryName(category[0].name)
+      setWishlists(category[1])
+      setAccessToken(accessToken)
+      dispatch(
+        setCategoryLink({
+          name: category[0].name,
+          path: `/category/${categoryId}`,
+        })
+      )
+    } catch (e) {
+      dispatch(
+        setNotification(
+          {
+            message: 'Invalid URL, redirecting to home...',
+            type: 'axiosError',
+          },
+          3
+        )
+      )
+    }
   }
 
   //get wishlists from database
@@ -54,7 +67,9 @@ const Wishlists = () => {
   const handleAddWishlist = async () => {
     const name = newName
     if (!name) {
-      window.alert('Wishlist name is required')
+      dispatch(
+        setNotification({ message: 'Wishlist needs a name.', type: 'error' }, 3)
+      )
       return
     }
     const newWishlist = {
@@ -97,6 +112,7 @@ const Wishlists = () => {
           placeholder="wishlist name"
           onChange={handleNewName}
           onKeyDown={handleEnterPress}
+          maxLength={50}
           value={newName}
         />
         <div className="card-icon add-icon" onClick={handleAddWishlist}>

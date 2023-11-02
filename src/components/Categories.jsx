@@ -1,9 +1,13 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setNotification } from '../reducers/notificationReducer'
 import categoriesService from '../services/categories'
 import CategoryButton from './CategoryButton'
 
 const Categories = () => {
+  const dispatch = useDispatch()
+
   //Use categories state to control categories buttons
   const [categories, setCategories] = useState(null)
   const [newName, setNewName] = useState('')
@@ -37,7 +41,9 @@ const Categories = () => {
   const handleAddCategory = async () => {
     const name = newName
     if (!name) {
-      window.alert('Category name is required')
+      dispatch(
+        setNotification({ message: 'Category needs a name.', type: 'error' }, 3)
+      )
       return
     }
     const newCategory = {
@@ -81,6 +87,7 @@ const Categories = () => {
           placeholder="category name"
           onChange={handleNewName}
           onKeyDown={handleEnterPress}
+          maxLength={50}
           value={newName}
         />
         <div className="card-icon add-icon" onClick={handleAddCategory}>
