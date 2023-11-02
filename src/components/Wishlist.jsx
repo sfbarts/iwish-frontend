@@ -131,19 +131,21 @@ const Wishlist = () => {
 
   return (
     <div className="wishlist-container">
-      <div className="wishlist-header">
+      <div className="wishlist-title-container">
         <h1 className="wishlist-title">{wishlistName}</h1>
         <div className="wishlist-close card-icon delete-icon">
           <p className="close-text">Close to save!</p>
           <ion-icon onClick={saveList} name="close-circle-outline"></ion-icon>
         </div>
       </div>
-      <div className="wishlist-list">
+      <div className="wishlist-headers">
         <p className="regular-medium semi-bold">Item</p>
         <p className="regular-medium semi-bold">Link/Store</p>
         <p className="regular-medium semi-bold">Price</p>
         <p className="regular-medium semi-bold">Acquired</p>
         <span></span>
+      </div>
+      <div className="wishlist-list">
         {items.map((item) => (
           <Item
             key={item.id}
