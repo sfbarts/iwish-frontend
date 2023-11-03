@@ -16,6 +16,10 @@ body {
   overflow: hidden;
 }
 
+#root {
+  height: 100%;
+}
+
 /*TEXT*/
 .regular {
   font-size: 1.6rem;
