@@ -45,7 +45,7 @@ const Categories = () => {
           {
             message:
               'You have reached the max category limit of 10. Please delete one to continue.',
-            type: 'error',
+            type: 'warning',
           },
           3
         )

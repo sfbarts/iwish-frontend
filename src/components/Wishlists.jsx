@@ -70,7 +70,7 @@ const Wishlists = () => {
         setNotification(
           {
             message: 'You can only have a max of 10 wishlists per category.',
-            type: 'error',
+            type: 'warning',
           },
           3
         )
