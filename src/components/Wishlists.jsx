@@ -7,6 +7,7 @@ import { setNotification } from '../reducers/notificationReducer'
 import wishlistsService from '../services/wishlists'
 import categoriesService from '../services/categories'
 import WishlistButton from './WishlistButton'
+import Tooltip from './CustomTooltip'
 
 const Wishlists = () => {
   const categoryId = useParams().id
@@ -118,18 +119,22 @@ const Wishlists = () => {
         />
       ))}
       <div className="card card__add card__add-wishlist">
-        <input
-          className="input-name input-name__wishlist medium"
-          type="text"
-          placeholder="wishlist name"
-          onChange={handleNewName}
-          onKeyDown={handleEnterPress}
-          maxLength={50}
-          value={newName}
-        />
-        <div className="card-icon add-icon" onClick={handleAddWishlist}>
-          +
-        </div>
+        <Tooltip disableHoverListener title="Press enter or click '+' to add">
+          <input
+            className="input-name input-name__wishlist medium"
+            type="text"
+            placeholder="wishlist name"
+            onChange={handleNewName}
+            onKeyDown={handleEnterPress}
+            maxLength={50}
+            value={newName}
+          />
+        </Tooltip>
+        <Tooltip title="Add wishlist">
+          <div className="card-icon add-icon" onClick={handleAddWishlist}>
+            +
+          </div>
+        </Tooltip>
       </div>
     </div>
   )

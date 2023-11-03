@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import itemsService from '../services/items'
+import Tooltip from './CustomTooltip'
 
 const Item = ({ item, items, setItems, accessToken }) => {
   //newItem state now controls the inputs of each item
@@ -90,9 +91,11 @@ const Item = ({ item, items, setItems, accessToken }) => {
         onChange={handleAcquiredUpdate}
         checked={newItem.acquired}
       />
-      <div className="trash-icon">
-        <ion-icon onClick={handleRemoveItem} name="trash"></ion-icon>
-      </div>
+      <Tooltip placement="right" title="Delete item">
+        <div className="trash-icon">
+          <ion-icon onClick={handleRemoveItem} name="trash"></ion-icon>
+        </div>
+      </Tooltip>
     </>
   )
 }

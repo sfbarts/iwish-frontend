@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import wishlistsService from '../services/wishlists'
+import Tooltip from './CustomTooltip'
 
 const WishlistButton = (props) => {
   //originalWishlist handles original states to compare if changes have been made
@@ -9,6 +10,7 @@ const WishlistButton = (props) => {
   const [originalWishlist, setOriginalWishlist] = useState(props.wishlist)
   const [wishlist, setWishlist] = useState(props.wishlist)
   const [editing, setEditing] = useState(false)
+  const [editTooltipTitle, setEditTooltipTitle] = useState('Edit name')
 
   //only render when there are wishlists
   if (!wishlist) {
@@ -21,12 +23,14 @@ const WishlistButton = (props) => {
 
     if (!editing) {
       editButton.name = 'save'
+      setEditTooltipTitle('Save name')
     } else {
       if (wishlist.name !== originalWishlist.name) {
         await wishlistsService.updateWishlist(props.accessToken, wishlist)
         setOriginalWishlist(wishlist)
       }
       editButton.name = 'pencil-outline'
+      setEditTooltipTitle('Edit name')
     }
     setEditing(!editing)
   }
@@ -47,10 +51,12 @@ const WishlistButton = (props) => {
   return (
     <div className="card card__wishlist">
       <div className="card-icon delete-icon">
-        <ion-icon
-          onClick={handleDeleteWishlist}
-          name="close-circle-outline"
-        ></ion-icon>
+        <Tooltip title="Delete wishlist">
+          <ion-icon
+            onClick={handleDeleteWishlist}
+            name="close-circle-outline"
+          ></ion-icon>
+        </Tooltip>
       </div>
       <div className="card-name-container">
         {!editing ? (
@@ -66,16 +72,20 @@ const WishlistButton = (props) => {
           />
         )}
         <div className="card-icon edit-icon">
-          <ion-icon
-            onClick={(e) => handleEditClick(e)}
-            name="pencil-outline"
-          ></ion-icon>
+          <Tooltip title={editTooltipTitle}>
+            <ion-icon
+              onClick={(e) => handleEditClick(e)}
+              name="pencil-outline"
+            ></ion-icon>
+          </Tooltip>
         </div>
       </div>
       <p className="medium">${wishlist.total}</p>
-      <Link className="card-icon" to={`/wishlists/${wishlist.id}`}>
-        <ion-icon name="eye"></ion-icon>
-      </Link>
+      <Tooltip title="Open wishlist">
+        <Link className="card-icon" to={`/wishlists/${wishlist.id}`}>
+          <ion-icon name="eye"></ion-icon>
+        </Link>
+      </Tooltip>
     </div>
   )
 }

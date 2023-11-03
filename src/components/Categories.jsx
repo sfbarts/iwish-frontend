@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
 import categoriesService from '../services/categories'
 import CategoryButton from './CategoryButton'
+import Tooltip from './CustomTooltip'
 
 const Categories = () => {
   const dispatch = useDispatch()
@@ -95,18 +96,22 @@ const Categories = () => {
         />
       ))}
       <div className="card card__add card__add-category">
-        <input
-          className="input-name input-name__category medium"
-          type="text"
-          placeholder="category name"
-          onChange={handleNewName}
-          onKeyDown={handleEnterPress}
-          maxLength={50}
-          value={newName}
-        />
-        <div className="card-icon add-icon" onClick={handleAddCategory}>
-          +
-        </div>
+        <Tooltip disableHoverListener title="Press enter or click '+' to add">
+          <input
+            className="input-name input-name__category medium"
+            type="text"
+            placeholder="category name"
+            onChange={handleNewName}
+            onKeyDown={handleEnterPress}
+            maxLength={50}
+            value={newName}
+          />
+        </Tooltip>
+        <Tooltip title="Add category">
+          <div className="card-icon add-icon" onClick={handleAddCategory}>
+            +
+          </div>
+        </Tooltip>
       </div>
     </div>
   )

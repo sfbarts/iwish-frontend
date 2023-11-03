@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import categoriesService from '../services/categories'
+import Tooltip from './CustomTooltip'
 
 const CategoryButton = (props) => {
   //originalCategory handles original states to compare if changes have been made
@@ -8,6 +9,7 @@ const CategoryButton = (props) => {
   const [originalCategory, setOriginalCategory] = useState(props.category)
   const [category, setCategory] = useState(props.category)
   const [editing, setEditing] = useState(false)
+  const [editTooltipTitle, setEditTooltipTitle] = useState('Edit name')
 
   //only render when there are wishlists
   if (!category) {
@@ -20,12 +22,14 @@ const CategoryButton = (props) => {
 
     if (!editing) {
       editButton.name = 'save'
+      setEditTooltipTitle('Save name')
     } else {
       if (category.name !== originalCategory.name) {
         await categoriesService.updateCategory(props.accessToken, category)
         setOriginalCategory(category)
       }
       editButton.name = 'pencil-outline'
+      setEditTooltipTitle('Edit name')
     }
     setEditing(!editing)
   }
@@ -49,10 +53,12 @@ const CategoryButton = (props) => {
   return (
     <div className="card card__category">
       <div className="card-icon delete-icon">
-        <ion-icon
-          onClick={handleDeleteCategory}
-          name="close-circle-outline"
-        ></ion-icon>
+        <Tooltip title="Delete category">
+          <ion-icon
+            onClick={handleDeleteCategory}
+            name="close-circle-outline"
+          ></ion-icon>
+        </Tooltip>
       </div>
       <div className="card-name-container">
         {!editing ? (
@@ -69,15 +75,19 @@ const CategoryButton = (props) => {
         )}
 
         <div className="card-icon edit-icon">
-          <ion-icon
-            onClick={(e) => handleEditClick(e)}
-            name="pencil-outline"
-          ></ion-icon>
+          <Tooltip title={editTooltipTitle}>
+            <ion-icon
+              onClick={(e) => handleEditClick(e)}
+              name="pencil-outline"
+            ></ion-icon>
+          </Tooltip>
         </div>
       </div>
-      <Link className="card-icon" to={`/category/${category.id}`}>
-        <ion-icon name="eye"></ion-icon>
-      </Link>
+      <Tooltip title="Open category">
+        <Link className="card-icon" to={`/category/${category.id}`}>
+          <ion-icon name="eye"></ion-icon>
+        </Link>
+      </Tooltip>
     </div>
   )
 }
