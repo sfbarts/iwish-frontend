@@ -8,13 +8,25 @@ const Notification = () => {
 
   if (notification === null) {
     return null
-  } else if (notification.type === 'success') {
-    return <Alert severity="success">{notification.message}</Alert>
   } else if (notification.type === 'axiosError') {
     setTimeout(() => navigate('/'), 3000)
-    return <Alert severity="error">{notification.message}</Alert>
+    return (
+      <Alert severity="error" id="notification">
+        {notification.message}
+      </Alert>
+    )
+  } else if (notification.type === 'warning') {
+    return (
+      <Alert severity="warning" id="notification">
+        {notification.message}
+      </Alert>
+    )
   } else {
-    return <Alert severity="error">{notification.message}</Alert>
+    return (
+      <Alert severity="error" id="notification">
+        {notification.message}
+      </Alert>
+    )
   }
 }
 

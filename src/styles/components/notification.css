@@ -1,0 +1,8 @@
+#notification {
+  display: flex;
+  justify-content: center;
+  max-width: 80%;
+  margin: 0 auto;
+  margin-bottom: 1.6rem;
+  font-size: 1.8rem;
+}
