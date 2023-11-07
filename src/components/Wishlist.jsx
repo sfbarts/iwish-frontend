@@ -143,7 +143,7 @@ const Wishlist = () => {
         <p className="wishlist-header regular-medium semi-bold">Item</p>
         <p className="wishlist-header regular-medium semi-bold">Link/Store</p>
         <p className="wishlist-header regular-medium semi-bold">Price</p>
-        <p className="wishlist-header regular-medium semi-bold">Acquired</p>
+        <p className="wishlist-header regular-medium bold">&#10003;</p>
         <div className="wishlist-header"></div>
         {items.map((item) => (
           <Item
