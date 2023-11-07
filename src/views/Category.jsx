@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import PageLayout from '../components/PageLayout'
 import Wishlists from '../components/Wishlists'
+import Notification from '../components/Notification'
+import Breadcrumbs from '../components/navigation/desktop/Breadcrumbs'
 import { setWishlistLink } from '../reducers/wishlistLinkReducer'
 
 const CategoryView = () => {
@@ -13,6 +15,8 @@ const CategoryView = () => {
 
   return (
     <PageLayout>
+      <Breadcrumbs />
+      <Notification />
       <Wishlists />
     </PageLayout>
   )
