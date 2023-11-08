@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:3001/api/categories'
+const baseUrl = `${import.meta.env.VITE_API_SERVER_URL}/api/categories`
 
 //Get all categories
 const getAll = async (accessToken) => {

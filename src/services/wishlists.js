@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:3001/api/wishlists'
+const baseUrl = `${import.meta.env.VITE_API_SERVER_URL}/api/wishlists`
 
 //get a wishlist based on its id
 const getWishlist = async (accessToken, wishlistId) => {
