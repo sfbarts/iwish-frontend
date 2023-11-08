@@ -12,13 +12,13 @@ const LoginView = () => {
         !
       </h1>
       <p>
-        iWISH is an app that lets you put in sight everything that you ever
-        wanted.
+        iWISH is an app that lets you put in sight everything that you need and
+        want.
       </p>
       <p>
-        Some use it to do regular groceries lists, others use it to have save
-        their dream christmas shopping list. You can use it for this and
-        everything else you want.
+        Some people use it to keep their groceries lists. Others use it to have
+        their dream christmas shopping list at hand. You can use it for this and
+        everything else you can think of.
       </p>
       <p className="bold upper medium">Sign up for free for limited time!</p>
     </WelcomeCard>
