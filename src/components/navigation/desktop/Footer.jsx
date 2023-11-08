@@ -4,10 +4,13 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-links">
-        <Link>Terms & Conditions</Link>
-        <Link>Privacy Policy</Link>
+        <Link to="/terms-and-conditions">Terms & Conditions</Link>
+        <Link to="/privacy-policy">Privacy Policy</Link>
       </div>
-      <p>Designed and Developed by Sebastian Beltran</p>
+      <p>
+        Designed and Developed by Sebastian Beltran. Copyright &copy; 2023 - All
+        rights reserved.
+      </p>
     </footer>
   )
 }

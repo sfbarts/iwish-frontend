@@ -3,17 +3,20 @@ import { Routes, Route } from 'react-router-dom'
 import AuthenticationGuard from './components/AuthenticationGuard'
 import Signup from './components/Signup'
 import CallbackView from './views/Callback'
+import PageLayout from './components/PageLayout'
 import CategoryView from './views/Category'
 import HomeView from './views/Home'
 import LoginView from './views/Login'
 import WishlistView from './views/Wishlist'
 import NotFoundView from './views/NotFound'
+import TermsAndConditionsView from './views/TermsAndConditions'
+import PrivacyPolicyView from './views/PrivacyPolicy'
 
 const App = () => {
   const { isLoading } = useAuth0()
 
   if (isLoading) {
-    return <p>Loading...</p>
+    return <PageLayout />
   }
   return (
     <Routes>
@@ -29,6 +32,11 @@ const App = () => {
       <Route path="/callback" element={<CallbackView />} />
       <Route path="/" element={<AuthenticationGuard component={HomeView} />} />
       <Route path="/login" element={<LoginView />} />
+      <Route
+        path="/terms-and-conditions"
+        element={<TermsAndConditionsView />}
+      />
+      <Route path="/privacy-policy" element={<PrivacyPolicyView />} />
       <Route
         path="*"
         element={<AuthenticationGuard component={NotFoundView} />}
