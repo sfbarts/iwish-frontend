@@ -30,8 +30,8 @@ const App = () => {
       />
       <Route path="/signup" element={<Signup />} />
       <Route path="/callback" element={<CallbackView />} />
-      <Route path="/" element={<AuthenticationGuard component={HomeView} />} />
       <Route path="/login" element={<LoginView />} />
+      <Route path="/" element={<HomeView />} />
       <Route
         path="/terms-and-conditions"
         element={<TermsAndConditionsView />}
