@@ -8,6 +8,7 @@ const LoginView = () => {
         <img
           className="logo logo__welcome"
           src="/assets/IWish_Logo_600x206.png"
+          alt="iWish Logo Image"
         />
         !
       </h1>

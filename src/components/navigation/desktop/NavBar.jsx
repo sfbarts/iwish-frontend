@@ -4,11 +4,12 @@ import LogoutButton from '../../buttons/logout-button'
 const NavBar = () => {
   return (
     <header className="nav-bar">
-      <Link to="/">
+      <Link to="/" className="logo-link" name="iWish Home">
         <img
           className="logo"
           src="/assets/IWish_Logo_600x206.png"
           loading="lazy"
+          alt="iWish Logo Image"
         />
       </Link>
 

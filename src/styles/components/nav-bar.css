@@ -11,9 +11,12 @@
 }
 
 .logo {
-  grid-column-start: 2;
   width: 130px;
   padding-bottom: 1.2rem;
+}
+
+.logo-link {
+  grid-column-start: 2;
 }
 
 .logo__welcome {

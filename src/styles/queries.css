@@ -33,8 +33,11 @@
   }
 
   .logo {
-    grid-column-start: 1;
     width: 120px;
+  }
+
+  .logo-link {
+    grid-column-start: 1;
   }
 
   .nav-bar .logo {
