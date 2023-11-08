@@ -15,10 +15,10 @@
 
   .welcome-card {
     width: 80%;
-    height: 70vh;
+    height: 75vh;
     min-width: 350px;
     margin-top: 9rem;
-    padding: 2rem 2rem;
+    padding: 3rem 4rem;
   }
 
   .auth-buttons {
