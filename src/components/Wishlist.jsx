@@ -9,21 +9,31 @@ import wishlistsService from '../services/wishlists'
 import itemsService from '../services/items'
 import Item from './Item'
 
+//Wishlist Component renders the actual Wishlist component where items are added.
 const Wishlist = () => {
+  //Get wishlist id from path
   const wishlistId = useParams().id
+  //declare Redux dispatch and useSelector hooks
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  //useSelector gets the categoryLink state to set the breadcrumbs when navigating directy from the browser's search
   const categoryLink = useSelector((state) => state.categoryLink.path)
+  //declare react-router useNavigate hook
+  const navigate = useNavigate()
 
-  //control items state using useState
+  //originalItems controls state of items based on DB. It is directly related to DB.
   const [originalItems, setOriginalItems] = useState(null)
+  //items controls the most up to date state of items.
   const [items, setItems] = useState(null)
+  //wishlistName controls the name of wishlist name which is used when navigating directly.
   const [wishlistName, setWishlistName] = useState('')
+  //accessToken state holds the authentication token to pass to backend
   const [accessToken, setAccessToken] = useState('')
-
+  //declare getAccessTokenSilently hook from Auth0
   const { getAccessTokenSilently } = useAuth0()
 
+  //getWishlist is used on useEffect hook to setup wishlist on first render
   const getWishlist = async () => {
+    //Get initial wishlist from DB and setup all initial states.
     try {
       const accessToken = await getAccessTokenSilently()
       setAccessToken(accessToken)
@@ -34,6 +44,7 @@ const Wishlist = () => {
       setWishlistName(initialWishlist[0].name)
       setItems(initialWishlist[1])
       setOriginalItems(initialWishlist[1])
+      //set wishlist adn category links for breadcrumbs.
       dispatch(
         setWishlistLink({
           name: initialWishlist[0].name,
@@ -59,6 +70,7 @@ const Wishlist = () => {
     }
   }
 
+  //getItems is used to retrieve items once new
   const getItems = async () => {
     const initialItems = await itemsService.getAll(accessToken, wishlistId)
     setItems(initialItems)
@@ -74,8 +86,9 @@ const Wishlist = () => {
     return
   }
 
-  //addEmptyRow function adds an item row to the array
+  //addEmptyRow function adds a new item to the list.
   const addEmptyRow = async () => {
+    //Prevent creation of items if limit of 30 reached.
     if (items.length === 30) {
       dispatch(
         setNotification(
@@ -102,7 +115,7 @@ const Wishlist = () => {
     setItems(newItems)
   }
 
-  //saveList function compare current items in wishlist with previous items and save changed items
+  //saveList function compare current items in wishlist with previous items and save changed items.
   const saveList = async () => {
     //check if the lists are different and if so compare each item to one another. Then send a request for the changed items.
     if (items !== originalItems) {
@@ -113,6 +126,7 @@ const Wishlist = () => {
         }
       }
 
+      //If changed items contains items then update items if not it means that lists are not the same but beacause items were deleted so don't update DB
       if (changedItems.length) {
         const updateItems = await itemsService.updateItems(
           accessToken,
@@ -125,6 +139,7 @@ const Wishlist = () => {
     navigate(categoryLink)
   }
 
+  //Total controls the total price of the wishlist updating it as they are typed.
   const total = items
     .reduce((sum, item) => sum + Number(item.price), 0)
     .toFixed(2)

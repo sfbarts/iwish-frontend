@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = { name: '', path: '' }
 
+//Setup wishlist link reducer for breadcrumbs
 const wishlistLinkSlice = createSlice({
   name: 'wishlistLink',
   initialState,

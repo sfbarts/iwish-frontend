@@ -9,6 +9,7 @@ import Breadcrumbs from '../components/navigation/desktop/Breadcrumbs'
 import { setCategoryLink } from '../reducers/categoryLinkReducer'
 import { setWishlistLink } from '../reducers/wishlistLinkReducer'
 
+//HomeView is the page where all categories are rendered in the structured page.
 const HomeView = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()

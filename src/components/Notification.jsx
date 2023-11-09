@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Alert } from '@mui/material'
 
+//Notification component defines message and style based on type.
 const Notification = () => {
   const navigate = useNavigate()
   const notification = useSelector((state) => state.notification)

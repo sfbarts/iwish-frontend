@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import LogoutButton from '../../buttons/logout-button'
 
+//NavBar contains the header content and uses LogoutButton Component
 const NavBar = () => {
   return (
     <header className="nav-bar">

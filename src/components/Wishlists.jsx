@@ -9,26 +9,31 @@ import categoriesService from '../services/categories'
 import WishlistButton from './WishlistButton'
 import Tooltip from './CustomTooltip'
 
+//Wishlists component renders all WishlistButton components inside a category
 const Wishlists = () => {
+  //Get category id from path
   const categoryId = useParams().id
+  //Define redux dispatch hook
   const dispatch = useDispatch()
 
   //Use wishlists state to control wishlists buttons
   const [wishlists, setWishlists] = useState(null)
-  const [categoryName, setCategoryName] = useState('')
+  //newName state handles the name of new wishlists
   const [newName, setNewName] = useState('')
+  //accessToken state holds the authentication token to pass to backend
   const [accessToken, setAccessToken] = useState('')
-
+  //declare getAccessTokenSilently hook from Auth0
   const { getAccessTokenSilently } = useAuth0()
 
+  //getWishlists is used on useEffect hook to setup all wishlists on first render
   const getWishlists = async () => {
+    //Get initial wishlists from DB and setup all initial states.
     try {
       const accessToken = await getAccessTokenSilently()
       const category = await categoriesService.getCategory(
         accessToken,
         categoryId
       )
-      setCategoryName(category[0].name)
       setWishlists(category[1])
       setAccessToken(accessToken)
       dispatch(
@@ -50,7 +55,7 @@ const Wishlists = () => {
     }
   }
 
-  //get wishlists from database
+  //get wishlists from database using the getWishlists function
   useEffect(() => {
     getWishlists()
   }, [])
@@ -60,12 +65,14 @@ const Wishlists = () => {
     return
   }
 
-  //handleNewName controls input value
+  //handleNewName controls input value and sets newName state
   const handleNewName = (e) => {
     setNewName(e.target.value)
   }
 
+  //handleAddWishlist controls adding new categories by passing newName state to wishlists service after adding a category.
   const handleAddWishlist = async () => {
+    //Prevent creation of wishlists if limit of 10 reached.
     if (wishlists.length === 10) {
       dispatch(
         setNotification(
@@ -78,6 +85,8 @@ const Wishlists = () => {
       )
       return
     }
+
+    //Get new name state and if no name added, notify.
     const name = newName
     if (!name) {
       dispatch(
@@ -85,6 +94,8 @@ const Wishlists = () => {
       )
       return
     }
+
+    //Create a wishlist object with new name to pass to wishlists Service
     const newWishlist = {
       name: name,
       category: categoryId,
@@ -95,18 +106,21 @@ const Wishlists = () => {
       accessToken,
       newWishlist
     )
+
+    //Update wishlists on the frontend
     const newWishlists = wishlists.concat(saveWishlist)
     setWishlists(newWishlists)
     setNewName('')
   }
 
+  //Allow triggering of wishlist creation by pressing enter key.
   const handleEnterPress = (e) => {
     if (e.key === 'Enter') {
       handleAddWishlist()
     }
   }
 
-  //render a button for each list
+  //render a WishlistButton for each wishlist and a constant Add Wishlist button at the end.
   return (
     <div className="cards-container">
       {wishlists.map((wishlist) => (

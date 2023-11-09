@@ -1,5 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react'
 
+// SignupButton handles redirection to Auth0 signup form using Auth0 loginWithRedirect hook
 const SignupButton = () => {
   const { loginWithRedirect } = useAuth0()
 

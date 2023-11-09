@@ -3,12 +3,13 @@ import itemsService from '../services/items'
 import Tooltip from './CustomTooltip'
 
 const Item = ({ item, items, setItems, accessToken }) => {
-  //newItem state now controls the inputs of each item
-  //originalItem handles the item that is on the wishlist
+  //originalItem holds the original values for each item input
   const [originalItem, setOriginalItem] = useState({})
+  //newItem state now controls all the inputs of each item
   const [newItem, setNewItem] = useState(null)
 
-  //Set items on every time the items being rendered change
+  //Set the item price input to be empty by default if it is 0
+  //Save original item using item passed from Wishlist component
   useEffect(() => {
     setNewItem({ ...item, price: item.price > 0 ? item.price : '' })
     setOriginalItem(item)
@@ -19,7 +20,7 @@ const Item = ({ item, items, setItems, accessToken }) => {
     return
   }
 
-  //addToItems function allows for modifications of the wishlists items which allow for an accurate total
+  //Items state is updated if items have changed in order to keep list updated.
   const addToItems = (updatedItem) => {
     if (updatedItem !== originalItem) {
       const newItems = items.map((item) =>
@@ -30,29 +31,33 @@ const Item = ({ item, items, setItems, accessToken }) => {
     }
   }
 
-  //All handle functions update the state of the inputs
+  //handleNewName controls name input value and sets newItem state
   const handleNameUpdate = (e) => {
     const newName = { ...newItem, name: e.target.value }
     setNewItem(newName)
   }
 
+  //handleUrlUpdate controls URL input value and sets newItem state
   const handleUrlUpdate = (e) => {
     const newUrl = { ...newItem, url: e.target.value }
     setNewItem(newUrl)
   }
 
+  //handlePriceUpdate controls price input value and sets newItem state
   const handlePriceUpdate = (e) => {
     const newPrice = e.target.value
     setNewItem({ ...newItem, price: newPrice })
     addToItems({ ...newItem, price: newPrice })
   }
 
+  //handleAcquiredUpdate controls acquired input value and sets newItem state
   const handleAcquiredUpdate = (e) => {
     const newAcquired = { ...newItem, acquired: e.target.checked }
     setNewItem(newAcquired)
     addToItems(newAcquired)
   }
 
+  //handleRemoveItem removes item from database.
   const handleRemoveItem = async () => {
     const updatedItems = items.filter((item) => item.id !== newItem.id)
     setItems(updatedItems)

@@ -6,17 +6,21 @@ import categoriesService from '../services/categories'
 import CategoryButton from './CategoryButton'
 import Tooltip from './CustomTooltip'
 
+//Categories component renders all CategoryButton components from categories that belong to a user.
 const Categories = () => {
+  //Define redux dispatch hook
   const dispatch = useDispatch()
 
   //Use categories state to control categories buttons
   const [categories, setCategories] = useState(null)
+  //newName state handles the name of new categories
   const [newName, setNewName] = useState('')
+  //accessToken state holds the authentication token to pass to backend
   const [accessToken, setAccessToken] = useState('')
-
+  //declare getAccessTokenSilently hook from Auth0
   const { getAccessTokenSilently } = useAuth0()
 
-  //get wishlists from database
+  //get wishlists from database by passing the access token to the categories service.
   useEffect(() => {
     const getCategories = async () => {
       const accessToken = await getAccessTokenSilently()
@@ -33,13 +37,14 @@ const Categories = () => {
     return
   }
 
-  //handleNewName controls input value
+  //handleNewName controls input value and sets newName state
   const handleNewName = (e) => {
     setNewName(e.target.value)
   }
 
-  //handleAddCategory controls adding new categories
+  //handleAddCategory controls adding new categories by passing newName state to categories service after adding a category.
   const handleAddCategory = async () => {
+    //Prevent creation of categories if limit of 10 reached.
     if (categories.length === 10) {
       dispatch(
         setNotification(
@@ -54,6 +59,7 @@ const Categories = () => {
       return
     }
 
+    //Get new name state and if no name added, notify.
     const name = newName
     if (!name) {
       dispatch(
@@ -61,6 +67,8 @@ const Categories = () => {
       )
       return
     }
+
+    //Create a category object with new name to pass to categories Service
     const newCategory = {
       name: name,
     }
@@ -71,19 +79,20 @@ const Categories = () => {
       newCategory
     )
 
+    //Update categories on the frontend
     const newCategories = categories.concat(saveCategory)
-    console.log(saveCategory)
     setCategories(newCategories)
     setNewName('')
   }
 
+  //Allow triggering of category creation by pressing enter key.
   const handleEnterPress = (e) => {
     if (e.key === 'Enter') {
       handleAddCategory()
     }
   }
 
-  //render a button for each category
+  //render a CategoryButton for each category and a constant Add Category button at the end.
   return (
     <div className="cards-container">
       {categories.map((category) => (

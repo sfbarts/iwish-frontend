@@ -1,5 +1,6 @@
 import WelcomeCard from '../components/WelcomeCard'
 
+//LoginView renders the welcome card.
 const LoginView = () => {
   return (
     <WelcomeCard>

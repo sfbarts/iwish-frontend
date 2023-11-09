@@ -6,6 +6,7 @@ import Notification from '../components/Notification'
 import Breadcrumbs from '../components/navigation/desktop/Breadcrumbs'
 import { setWishlistLink } from '../reducers/wishlistLinkReducer'
 
+//CategoryView is used to see all the wishlists in a page.
 const CategoryView = () => {
   const dispatch = useDispatch()
 

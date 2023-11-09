@@ -5,11 +5,12 @@ import Tooltip from './CustomTooltip'
 
 const WishlistButton = (props) => {
   //originalWishlist handles original states to compare if changes have been made
-  //wishlist state handles the wishlist
-  //Name handles the state for updating
   const [originalWishlist, setOriginalWishlist] = useState(props.wishlist)
+  //wishlist state handles the most uptodate wishlist
   const [wishlist, setWishlist] = useState(props.wishlist)
+  //editing state is a boolean that helps us know if a category name is being edited in order to update name in DB and update icon.
   const [editing, setEditing] = useState(false)
+  //editTooltipTitle controls the tooltip title of the category name edit icon.
   const [editTooltipTitle, setEditTooltipTitle] = useState('Edit name')
 
   //only render when there are wishlists
@@ -17,7 +18,9 @@ const WishlistButton = (props) => {
     return
   }
 
-  //handle name edit button
+  //handleEditClick handles the category name change
+  //It changes the icons and tooltips by changing the button name and updating tooltip states.
+  //If category name is different than original then save to DB when save button pressed.
   const handleEditClick = async (e) => {
     const editButton = e.target
 
@@ -35,13 +38,13 @@ const WishlistButton = (props) => {
     setEditing(!editing)
   }
 
-  //handle name change
+  //handleNameChange updates category name when editing it.
   const handleNameChange = (e) => {
     const newName = { ...wishlist, name: e.target.value }
     setWishlist(newName)
   }
 
-  //handle wishlist deletion
+  //handleDeleteWishlist removes wishlist from DB and updates frontend.
   const handleDeleteWishlist = async () => {
     const updatedWishlists = props.wishlists.filter((w) => w.id !== wishlist.id)
     props.setWishlists(updatedWishlists)

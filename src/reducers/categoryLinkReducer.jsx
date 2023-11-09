@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = { name: '', path: '' }
 
+//Setup category link reducer for breadcrumbs.
 const categoryLinkSlice = createSlice({
   name: 'categoryLink',
   initialState,

@@ -18,6 +18,8 @@ const App = () => {
   if (isLoading) {
     return <PageLayout />
   }
+
+  //App sets up the routes for the allowed paths.
   return (
     <Routes>
       <Route

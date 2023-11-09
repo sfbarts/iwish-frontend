@@ -1,5 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react'
 
+// LoginButton handles Auth0 logout form using its logout hook. Only renders if user logged in.
 const LogoutButton = () => {
   const { logout, isAuthenticated } = useAuth0()
 

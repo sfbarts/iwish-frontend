@@ -2,6 +2,7 @@ import { styled } from '@mui/material/styles'
 import { Zoom } from '@mui/material'
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
 
+//CustomTooltip extends MUI material Tooltip component to make it follow iWish styling.
 const CustomTooltip = styled(({ className, ...props }) => (
   <Tooltip
     {...props}
