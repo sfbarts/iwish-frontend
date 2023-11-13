@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import Checkbox from '@mui/material/Checkbox'
 import itemsService from '../services/items'
 import Tooltip from './CustomTooltip'
 
@@ -89,12 +90,17 @@ const Item = ({ item, items, setItems, accessToken }) => {
         onChange={handlePriceUpdate}
         placeholder="0.0"
       />
-      <input
-        className="checkbox"
-        type="checkbox"
-        value="acquired"
+      <Checkbox
         onChange={handleAcquiredUpdate}
         checked={newItem.acquired}
+        sx={{
+          color: 'white',
+          '&.Mui-checked': {
+            color: 'white',
+          },
+          '& .MuiSvgIcon-root': { fontSize: 24 },
+          '&:hover': { background: '#f3e5f509' },
+        }}
       />
       <Tooltip placement="right" title="Delete item">
         <div className="trash-icon">

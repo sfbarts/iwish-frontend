@@ -94,39 +94,6 @@
   color: transparent;
 }
 
-.checkbox {
-  appearance: none;
-  width: 2rem;
-  height: 2rem;
-  background-color: transparent;
-  border: 2px solid white;
-  border-radius: 0.4rem;
-  cursor: pointer;
-
-  display: grid;
-  place-content: center;
-  transition: all 120ms ease-in-out;
-}
-
-.checkbox:checked {
-  background-color: var(--white);
-}
-
-.checkbox::before {
-  content: '';
-  width: 1.2rem;
-  height: 1.2rem;
-  transform: scale(0);
-  transition: 120ms transform ease-in-out;
-  box-shadow: inset 1.2rem 1.2rem var(--wishlist-main-color);
-  transform-origin: center;
-  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-}
-
-.checkbox:checked::before {
-  transform: scale(1);
-}
-
 .trash-icon ion-icon {
   font-size: 3rem;
   cursor: pointer;
