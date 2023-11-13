@@ -160,15 +160,19 @@ const Wishlist = () => {
         <p className="wishlist-header regular-medium semi-bold">Price</p>
         <p className="wishlist-header regular-medium bold">&#10003;</p>
         <div className="wishlist-header"></div>
-        {items.map((item) => (
-          <Item
-            key={item.id}
-            item={item}
-            items={items}
-            setItems={setItems}
-            accessToken={accessToken}
-          />
-        ))}
+        {items
+          .toSorted(
+            (firstItem, secondItem) => firstItem.acquired - secondItem.acquired
+          )
+          .map((item) => (
+            <Item
+              key={item.id}
+              item={item}
+              items={items}
+              setItems={setItems}
+              accessToken={accessToken}
+            />
+          ))}
         <div className="wishlist-add-item">
           <div className="add-icon__item regular-medium" onClick={addEmptyRow}>
             +
