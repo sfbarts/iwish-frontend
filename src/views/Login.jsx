@@ -22,7 +22,7 @@ const LoginView = () => {
         their dream christmas shopping list at hand. You can use it for this and
         everything else you can think of.
       </p>
-      <p className="bold upper medium">Sign up for free for limited time!</p>
+      <p className="bold upper medium">Sign up for Free!</p>
     </WelcomeCard>
   )
 }
