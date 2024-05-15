@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setWishlistLink } from '../reducers/wishlistLinkReducer'
 import { setCategoryLink } from '../reducers/categoryLinkReducer'
 import { setNotification } from '../reducers/notificationReducer'
+import { saveWishlist } from '../reducers/modifiedListReducer'
 import wishlistsService from '../services/wishlists'
 import itemsService from '../services/items'
 import Item from './Item'
@@ -19,6 +20,9 @@ const Wishlist = () => {
   const categoryLink = useSelector((state) => state.categoryLink.path)
   //declare react-router useNavigate hook
   const navigate = useNavigate()
+
+  //get the state of changed items
+  const modifiedList = useSelector((state) => state.modifiedList)
 
   //originalItems controls state of items based on DB. It is directly related to DB.
   const [originalItems, setOriginalItems] = useState(null)
@@ -80,6 +84,7 @@ const Wishlist = () => {
   //This useEffect get the items from the backend and assigns them to items state on render
   useEffect(() => {
     getWishlist()
+    // dispatch(resetModifiedList())
   }, [])
 
   if (!items) {
@@ -115,27 +120,10 @@ const Wishlist = () => {
     setItems(newItems)
   }
 
-  //saveList function compare current items in wishlist with previous items and save changed items.
-  const saveList = async () => {
-    //check if the lists are different and if so compare each item to one another. Then send a request for the changed items.
-    if (items !== originalItems) {
-      let changedItems = []
-      for (let i = 0; i < items.length; i++) {
-        if (items[i] !== originalItems[i]) {
-          changedItems.push(items[i])
-        }
-      }
-
-      //If changed items contains items then update items if not it means that lists are not the same but beacause items were deleted so don't update DB
-      if (changedItems.length) {
-        const updateItems = await itemsService.updateItems(
-          accessToken,
-          changedItems
-        )
-        getItems()
-      }
-    }
-
+  //saveList function gets the modifiedList state and uses itemsService.update to update the items in the server.
+  const handleListClose = async () => {
+    //Save to server if there are any items changed.
+    dispatch(saveWishlist(accessToken))
     navigate(categoryLink)
   }
 
@@ -149,8 +137,11 @@ const Wishlist = () => {
       <div className="wishlist-title-container">
         <h1 className="wishlist-title">{wishlistName}</h1>
         <div className="wishlist-close card-icon delete-icon">
-          <p className="close-text">Close to save!</p>
-          <ion-icon onClick={saveList} name="close-circle-outline"></ion-icon>
+          {/* <p className="close-text">Close to save!</p> */}
+          <ion-icon
+            onClick={handleListClose}
+            name="close-circle-outline"
+          ></ion-icon>
         </div>
       </div>
 
