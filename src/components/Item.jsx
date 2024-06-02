@@ -2,19 +2,18 @@ import { useState, useEffect } from 'react'
 import Checkbox from '@mui/material/Checkbox'
 import { useDispatch } from 'react-redux'
 import { setModifiedList } from '../reducers/modifiedListReducer'
+import { updateWishlist, deleteItem } from '../reducers/wishlistReducer'
 import itemsService from '../services/items'
 import Tooltip from './CustomTooltip'
 
-const Item = ({ item, items, setItems, accessToken }) => {
+const Item = ({ item, accessToken }) => {
   //newItem state now controls all the inputs of each item
-  const [newItem, setNewItem] = useState(null)
+  const [newItem, setNewItem] = useState({
+    ...item,
+    price: item.price > 0 ? item.price : '',
+  })
 
   const dispatch = useDispatch()
-
-  //Set the item price input to be empty by default if it is 0
-  useEffect(() => {
-    setNewItem({ ...item, price: item.price > 0 ? item.price : '' })
-  }, [item])
 
   //only render once newItem has beens set
   if (!newItem) {
@@ -25,18 +24,22 @@ const Item = ({ item, items, setItems, accessToken }) => {
   // It currently updates the item state and dispatches the item to the modifiedItems reducer.
   const handleChangeUpdate = (e) => {
     const { name, value, checked } = e.target
+
     const updatedItem = {
       ...newItem,
       [name]: name !== 'acquired' ? value : checked,
     }
+
     setNewItem(updatedItem)
     dispatch(setModifiedList(updatedItem))
+    if (name === 'price' || name === 'acquired') {
+      dispatch(updateWishlist(updatedItem))
+    }
   }
 
   //handleRemoveItem removes item from database.
   const handleRemoveItem = async () => {
-    const updatedItems = items.filter((item) => item.id !== newItem.id)
-    setItems(updatedItems)
+    dispatch(deleteItem(newItem.id))
     await itemsService.deleteItem(accessToken, newItem.id)
   }
 

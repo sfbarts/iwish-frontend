@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { saveWishlist } from '../../../reducers/modifiedListReducer'
+import { resetWishlist } from '../../../reducers/wishlistReducer'
 
 //Breadcrumbs handles the rendering of breadcrumbs on app.
 const Breadcrumbs = () => {
@@ -18,6 +19,7 @@ const Breadcrumbs = () => {
   const linkCallback = async () => {
     const accessToken = await getAccessTokenSilently()
     dispatch(saveWishlist(accessToken))
+    dispatch(resetWishlist())
   }
 
   //Only render if there is a name on the reducer's state
