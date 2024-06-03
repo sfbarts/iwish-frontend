@@ -36,7 +36,7 @@ const App = () => {
         dispatch(saveWishlist(aT))
       }
 
-      window.addEventListener('beforeunload', handleBeforeUnload)
+      window.addEventListener('visibilitychange', handleBeforeUnload)
     }
   }, [isAuthenticated, aT])
 
