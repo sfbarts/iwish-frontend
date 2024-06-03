@@ -91,7 +91,6 @@ const Wishlist = () => {
           })
         )
         setTotal(totalSum)
-        console.log(wishlist)
       }
     }
   }, [wishlist, totalSum])

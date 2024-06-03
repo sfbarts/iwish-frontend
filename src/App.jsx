@@ -1,5 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { Routes, Route } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { saveWishlist } from './reducers/modifiedListReducer'
 import AuthenticationGuard from './components/AuthenticationGuard'
 import Signup from './components/Signup'
 import CallbackView from './views/Callback'
@@ -13,7 +16,29 @@ import TermsAndConditionsView from './views/TermsAndConditions'
 import PrivacyPolicyView from './views/PrivacyPolicy'
 
 const App = () => {
-  const { isLoading } = useAuth0()
+  const { isLoading, isAuthenticated, getAccessTokenSilently } = useAuth0()
+
+  const [aT, setAT] = useState(null)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const getToken = async () => {
+      const token = await getAccessTokenSilently()
+      setAT(token)
+    }
+    getToken()
+  }, [])
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const handleBeforeUnload = (event) => {
+        dispatch(saveWishlist(aT))
+      }
+
+      window.addEventListener('beforeunload', handleBeforeUnload)
+    }
+  }, [isAuthenticated, aT])
 
   if (isLoading) {
     return <PageLayout />
