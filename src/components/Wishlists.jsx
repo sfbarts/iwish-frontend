@@ -35,6 +35,7 @@ const Wishlists = () => {
         categoryId
       )
       setWishlists(category[1])
+
       setAccessToken(accessToken)
       dispatch(
         setCategoryLink({
