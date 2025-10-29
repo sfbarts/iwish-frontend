@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 
 //Footer component defines Footer content
 const Footer = () => {
+  const date = new Date()
+  const year = date.getFullYear()
   return (
     <footer className="footer">
       <div className="footer-links">
@@ -9,8 +11,8 @@ const Footer = () => {
         <Link to="/privacy-policy">Privacy Policy</Link>
       </div>
       <p>
-        Designed and Developed by Sebastian Beltran. Copyright &copy; 2023 - All
-        rights reserved.
+        Designed and Developed by Sebastian Beltran. Copyright &copy; {year} -
+        All rights reserved.
       </p>
     </footer>
   )
