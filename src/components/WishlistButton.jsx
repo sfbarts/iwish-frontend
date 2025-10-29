@@ -85,7 +85,11 @@ const WishlistButton = (props) => {
       </div>
       <p className="medium">${wishlist.total}</p>
       <Tooltip title="Open wishlist">
-        <Link className="card-icon" to={`/wishlists/${wishlist.id}`}>
+        <Link
+          className="card-icon"
+          to={`/wishlists/${wishlist.id}`}
+          state={{ wishlist }}
+        >
           <ion-icon name="eye"></ion-icon>
         </Link>
       </Tooltip>
