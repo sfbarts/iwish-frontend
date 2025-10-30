@@ -32,11 +32,12 @@ const App = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      const handleBeforeUnload = (event) => {
+      const handlePageEvent = (event) => {
         dispatch(saveWishlist(aT))
       }
 
-      window.addEventListener('visibilitychange', handleBeforeUnload)
+      window.addEventListener('visibilitychange', handlePageEvent)
+      window.addEventListener('beforeunload', handlePageEvent)
     }
   }, [isAuthenticated, aT])
 
